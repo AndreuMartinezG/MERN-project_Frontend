@@ -1,9 +1,9 @@
 import React from 'react';
-import './Home.css'
- 
-const Home = () => {
+import './Login.css'
+
+const Login = () => {
      return (
          <div className=''></div>
      )
 }
-export default Home;
+export default Login;
