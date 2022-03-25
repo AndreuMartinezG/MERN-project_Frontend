@@ -16,12 +16,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header/>
-        <Routes>
-        <Route path={'/'} element={<Home/>} />
-        <Route path={'/profile'} element={<Profile/>} />
-        <Route path={'/register'} element={<Register/>} />
-        <Route path={'/login'} element={<Login/>} />
-        </Routes>
+          <Routes>
+            <Route path={'/'} element={<Home/>} />
+            <Route path={'/profile'} element={<Profile/>} />
+            <Route path={'/register'} element={<Register/>} />
+            <Route path={'/login'} element={<Login/>} />
+          </Routes>
         <Footer/>
       </BrowserRouter>
       
