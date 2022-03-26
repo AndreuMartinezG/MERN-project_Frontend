@@ -3,3 +3,25 @@
     width: 100vw;
     background-color: lightgray
 }
+
+.registerButton {
+    height: 2em;
+    width: 4em;
+
+    background-color: bisque;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.registerButton:hover {
+    height: 2em;
+    width: 4em;
+
+    background-color: whitesmoke;
+
+}
