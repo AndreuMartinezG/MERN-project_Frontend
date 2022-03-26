@@ -1,0 +1,19 @@
+.designHeader {
+    width: 100vw;
+    height: 4em;
+    background-color: #1A232E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    
+    color: lightgray
+}
+
+.link {
+
+    margin-right: 3em;
+    box-sizing: content-box;
+    cursor: pointer;
+
+}
