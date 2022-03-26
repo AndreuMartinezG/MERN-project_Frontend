@@ -24,6 +24,7 @@ const Profile = (props) => {
         <div className='designProfile'>Profile</div>
     )
 }
+
 export default connect((state) => ({ 
     //variables de rdx a crear
 }))(Profile);
