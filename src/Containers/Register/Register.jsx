@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'
 import {connect} from 'react-redux'
- 
+import {checkError} from '../../tools'
 import './Register.css'
  
 const Register = (props) => {
