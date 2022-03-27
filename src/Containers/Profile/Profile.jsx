@@ -30,6 +30,7 @@ const Profile = (props) => {
             <div className="bodyProfile">
                 <div className="halfBodyProfileL">
                     <ProfileData />
+                    
                 </div>
                 <div className="halfBodyProfileR"></div>
             </div>
