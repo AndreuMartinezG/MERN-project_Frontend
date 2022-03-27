@@ -14,6 +14,13 @@ const Login = (props) => {
     const [msgError, setMsgError] = useState("");
 
 
+    useEffect(() => {
+        if (props.isLoggedIn) {
+            navigate('/');
+        }
+    }, []);
+
+
     const introduceData = (e) => {
 
         setUserData({ ...userData, [e.target.name]: e.target.value })
@@ -71,5 +78,5 @@ const Login = (props) => {
     )
 }
 export default connect((state) => ({
-
+    isLoggedIn: state.credentials.token !== null
 }))(Login);
