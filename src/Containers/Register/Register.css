@@ -15,6 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     text-align: center;
 
     height: 30em;
@@ -22,35 +23,39 @@
 
     border-radius: 2em;
 
-    background-color: yellow;
+    color: black;
+    background-color:rgba(128, 128, 128, 0.329);
 }
 
 .titulo {
     text-align: center;
+
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: flex-start;
     
-    background-color: green;
     
     align-items: center;
-    height: 5em;
+    height: 2em;
     width: 30em;
 
-}
-
-.tituloReg {
     font-size: 2em;
     font-weight: bold;
     font-family:Georgia, 'Times New Roman', Times, serif;
 
+}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.relleno {
+    width: 6em;
+    height: 2em;
 
-    text-align: center;
+}
+
+.relleno2 {
+    width: 18em;
+    height: 2em;
+
 }
 
 .inpunts {
@@ -63,7 +68,8 @@
     justify-content: center;
     align-items: center;
 
-    background-color: pink;
+    color: black;
+
 }
 
 .inp {
@@ -77,6 +83,11 @@
     border-radius: 3em;
 
     cursor: pointer;
+
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .inp:hover {
@@ -89,9 +100,10 @@
 
     border-radius: 3em;
 
-    background-color: bisque;
+    background-color: whitesmoke;
 
     transition: .5s;
+    color: black;
 }
 
 .bottomCardRegister {
@@ -99,30 +111,37 @@
     width: 30em;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: lightblue;
+
 }
 
 .registerButton {
-    height: 2em;
-    width: 4em;
+    height: 4em;
+    width: 7em;
 
-    background-color: bisque;
+    border-radius: 2em;
+
+    background-color: whitesmoke;
+
+    cursor: pointer;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    cursor: pointer;
+    color: black;
+    font-weight: bolder;
 }
 
 .registerButton:hover {
-    height: 2em;
-    width: 4em;
+    height: 3.5em;
+    width: 6em;
+    background-color: rgb(196, 233, 255);
 
-    background-color: whitesmoke;
+
+    border-color: .2em gray
 
 }

@@ -100,7 +100,8 @@ const Register = (props) => {
         <div className='designRegister'>
 
             <div className="recuadro">
-                <div className="titulo"><p className='tituloReg'>Register form</p></div>
+                <div className="titulo">Register form
+                    <div className="relleno"></div></div>
                 <div className="inpunts">
                     <input className='inp' type="text" name="firstName" id="fisrtName" title="fisrtName" placeholder="Name" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
                     <input className='inp' type="text" name="surname" id="lastName" title="lastName" placeholder="Surname" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
@@ -111,6 +112,7 @@ const Register = (props) => {
                     <input className='inp' type="password" name="password2" id="password2" title="password2" placeholder="Repeat password" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
                 </div>
                 <div className="bottomCardRegister">
+                    <div className="relleno2"></div>
                     {msgError}
                     <div className="registerButton" onClick={() => registrame()}>
                         Register
