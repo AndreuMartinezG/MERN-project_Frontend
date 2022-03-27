@@ -13,15 +13,37 @@ const Profile = (props) => {
 
     let navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(props)
 
+    useEffect(() => {
+        let userId = props.userData.user._id
+        userPosts(userId)
     }, [])
 
     useEffect(() => {
-        //UseEffect equivalente a componentDidUpdate (actualizado)
-
+        if (props.userData.token === null) {
+            navigate("/");
+        }
     })
+
+
+    const userPosts = async (userId) => {
+
+        let body =  {id_owner : userId}
+        
+        // let config = {
+        //     headers: { Authorization: `Bearer ${props.credentials.token}` }
+        // };
+
+        try {
+            console.log(body)
+            let res = await axios.post(`http://localhost:5000/threads/post/${userId}`, body);
+            console.log(res)
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
 
     return (
