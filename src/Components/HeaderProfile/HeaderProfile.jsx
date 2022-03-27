@@ -1,6 +1,8 @@
 import React from 'react';
 import './HeaderProfile.css'
-const HeaderProfile = () => {
+import { connect } from 'react-redux';
+
+const HeaderProfile = (props) => {
 
     return (
 
@@ -22,5 +24,7 @@ const HeaderProfile = () => {
     )
 
 }
-    
-export default HeaderProfile;
+
+export default connect((state) => ({
+    userData: state.credentials.user
+}))(HeaderProfile);
