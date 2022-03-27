@@ -10,7 +10,7 @@ const Profile = (props) => {
     let navigate = useNavigate();
  
     useEffect(()=>{
-    //UseEffect equivalente a componentDidMount (montado)
+    console.log(props)
  
     },[])
  
@@ -26,5 +26,5 @@ const Profile = (props) => {
 }
 
 export default connect((state) => ({ 
-    //variables de rdx a crear
+    userData: state.credentials
 }))(Profile);
