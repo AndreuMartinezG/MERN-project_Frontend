@@ -42,6 +42,9 @@ const Register = (props) => {
 
         let arrayCampos = Object.entries(datosUsuario);
 
+        console.log(datosUsuario.password,"esta es password")
+        console.log(datosUsuario.password2,"esta es password2")
+
         // //1 comprobación de errores antes de enviar al backend
 
         if (datosUsuario.password !== datosUsuario.password2) {
@@ -112,8 +115,7 @@ const Register = (props) => {
                     <input className='inp' type="password" name="password2" id="password2" title="password2" placeholder="Repeat password" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
                 </div>
                 <div className="bottomCardRegister">
-                    <div className="relleno2"></div>
-                    {msgError}
+                    <div className="relleno2">{msgError} </div>
                     <div className="registerButton" onClick={() => registrame()}>
                         Register
                     </div>

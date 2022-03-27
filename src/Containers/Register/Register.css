@@ -54,7 +54,11 @@
 
 .relleno2 {
     width: 18em;
-    height: 2em;
+    height: 4em;
+    
+    color: black;
+    font-size: 1em;
+    font-weight: bold;
 
 }
 
@@ -144,4 +148,11 @@
 
     border-color: .2em gray
 
+}
+
+.error {
+    height: 4em;
+    width: 25em;
+
+    background-color: pink;
 }

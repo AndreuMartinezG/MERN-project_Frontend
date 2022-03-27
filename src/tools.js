@@ -23,7 +23,7 @@ export const checkError = (type, value) => {
 
         case 'password':
                 //^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$
-            if (/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]){6,10}$/.test(value)) {
+            if (!/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.{6,})$/.test(value)) {
                 return "the password must contain At least 6 characters and no more than 10, one digit and one lower case character"
             } else {
                 return "ok";
@@ -36,6 +36,14 @@ export const checkError = (type, value) => {
             } else {
                 return "ok";
             };
+            
+        // case 'date':
+                
+        //     if (/^(1[0-2]|0?[1-9])/(3[01]|[12][0-9]|0?[1-9])/(?:[0-9]{2})?[0-9]{2}$/.test(value)) {
+        //         return "the date is wrong"
+        //     } else {
+        //         return "ok";
+        //     };
 
 
         case 'surname':
