@@ -29,7 +29,7 @@ const Header = (props) => {
         <div className='designHeader'>
 
             <div className="link" onClick={() => navegar("/")}>Home</div>
-            <div className="link" onClick={() => navegar("/profile")}>Profile</div>
+            {/* <div className="link" onClick={() => navegar("/profile")}>Profile</div> */}
 
             {/* Si el usuario no está loguado no mostraremos estos botones */}
 
@@ -37,7 +37,7 @@ const Header = (props) => {
             {!isLoggedIn && <div className="link" onClick={() => navegar("/register")}>Register</div>}
 
             {/* Si el usuario está loguado mostraremos estos botones */}
-            {isLoggedIn && <div className="link">{userName}</div>}
+            {isLoggedIn && <div className="link" onClick={() => navegar("/profile")}>{userName}</div>}
             {isLoggedIn && <div className="link" onClick={() => logout()}>Logout</div>}
 
 
