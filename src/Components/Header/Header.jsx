@@ -13,6 +13,7 @@ const Header = (props) => {
     // const { isLoggedIn, userName } = props;
     const isLoggedIn = props.isLoggedIn;
     const userName = props.userName;
+    console.log(userName)
 
     const navegar = (lugar) => {
         setTimeout(() => {
