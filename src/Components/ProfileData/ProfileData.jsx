@@ -7,36 +7,35 @@ import './ProfileData.css'
 
 const ProfileData = (props) => {
 
-
+    console.log(props)
+    
+    const userData = props.userData;
 
     return (
         <div className="userShow">
-            <div className="userShowTop">
-                <img
-                    src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                    alt=""
-                    className="userShowImg"
-                />
-                <div className="userShowTopTitle">
-                    <span className="userShowUsername">{props.credentials.userData.firstName}</span>
-                    <span className="userShowUserTitle">Web Developer</span>
-                </div>
-            </div>
+
             <div className="userShowBottom">
                 <span className="userShowTitle">Account Details</span>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">{props.credentials.userData.firstName} {props.credentials.userData.lastName}</span>
+                    <span className="userShowInfoTitle">{userData.firstName} {userData.lastName}</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">{props.credentials.userData.birthday} años</span>
+                    <span className="userShowInfoTitle">{userData.birthday} años</span>
+                </div>
+                <div className="userShowInfo">
+                    <span className="userShowInfoTitle">Followed : {userData.followed.length} people</span>
+                </div>
+                <div className="userShowInfo">
+                    <span className="userShowInfoTitle">Followers : {userData.followers.length}</span>
                 </div>
                 <span className="userShowTitle">Contact Details</span>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">{props.credentials.userData.nickName}</span>
+                    <span className="userShowInfoTitle">{userData.userName}</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">{props.credentials.userData.email}</span>
+                    <span className="userShowInfoTitle">{userData.email}</span>
                 </div>
+
             </div>
         </div>
     )

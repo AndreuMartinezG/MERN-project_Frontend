@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import './profile.css'
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
+import ProfileData from '../../Components/ProfileData/ProfileData';
 
 const Profile = (props) => {
 
@@ -27,7 +28,9 @@ const Profile = (props) => {
             <h3>{props.userData.user.firstName} {props.userData.user.lastName}</h3>
             
             <div className="bodyProfile">
-                <div className="halfBodyProfileL"></div>
+                <div className="halfBodyProfileL">
+                    <ProfileData />
+                </div>
                 <div className="halfBodyProfileR"></div>
             </div>
 
