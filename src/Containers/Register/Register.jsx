@@ -99,16 +99,16 @@ const Register = (props) => {
     return (
         <div className='designRegister'>
 
-            <div className="">
-                <div className="">Register Form</div>
-                <div className="">
-                    <input className='' type="text" name="firstName" id="fisrtName" title="fisrtName" placeholder="Name" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <input className='' type="text" name="surname" id="lastName" title="lastName" placeholder="Surname" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <input className='' type="text" name="userName" id="username" title="username" placeholder="username" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <input className='' type="date" name="birthday" id="birthday" title="birthday" placeholder="birthday" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <input className='' type="email" name="email" id="email" title="email" placeholder="Email" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <input className='' type="password" name="password" id="password" title="password" placeholder="password" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <input className='' type="password" name="password2" id="password2" title="password2" placeholder="Repeat password" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+            <div className="recuadro">
+                <div className="titulo"><p>Register form</p></div>
+                <div className="inpunts">
+                    <input className='inp' type="text" name="firstName" id="fisrtName" title="fisrtName" placeholder="Name" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+                    <input className='inp' type="text" name="surname" id="lastName" title="lastName" placeholder="Surname" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+                    <input className='inp' type="text" name="userName" id="username" title="username" placeholder="username" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+                    <input className='inp' type="date" name="birthday" id="birthday" title="birthday" placeholder="birthday" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+                    <input className='inp' type="email" name="email" id="email" title="email" placeholder="Email" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+                    <input className='inp' type="password" name="password" id="password" title="password" placeholder="password" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+                    <input className='inp' type="password" name="password2" id="password2" title="password2" placeholder="Repeat password" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
                 </div>
                 <div className="bottomCardRegister">
                     {msgError}

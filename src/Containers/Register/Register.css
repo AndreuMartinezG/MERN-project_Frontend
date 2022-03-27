@@ -1,7 +1,90 @@
 .designRegister {
-    height: 39em;
+    height: 45.7em;
     width: 100vw;
-    background-color: lightgray
+    background-color: lightgray;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.recuadro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 30em;
+    width: 30em;
+
+    background-color: yellow;
+}
+
+.titulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: green;
+
+    height: 5em;
+    width: 30em;
+
+
+}
+
+.inpunts {
+
+    height: 20em;
+    width: 30em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: pink;
+}
+
+.inp {
+    height: 2.5em;
+    width: 13em;
+
+    text-align: center;
+
+    margin: .1em;
+
+    border-radius: 3em;
+
+    cursor: pointer;
+}
+
+.inp:hover {
+    height: 3em;
+    width: 15em;
+
+    text-align: center;
+
+    margin: .1em;
+
+    border-radius: 3em;
+    
+    background-color: bisque;
+
+    transition: .5s;
+}
+
+.bottomCardRegister {
+    height: 5em;
+    width: 30em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: lightblue;
 }
 
 .registerButton {

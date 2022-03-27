@@ -7,7 +7,7 @@ export const checkError = (type, value) => {
 
             if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value)) {
 
-                return "Introduce un e-mail válido";
+                return "Introduce a valid email";
             } else {
                 return "ok";
             };
@@ -22,6 +22,14 @@ export const checkError = (type, value) => {
             };
 
         case 'password':
+                //^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$
+            if (/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]){6,10}$/.test(value)) {
+                return "the password must contain At least 6 characters and no more than 10, one digit and one lower case character"
+            } else {
+                return "ok";
+            };
+
+        case 'password2':
                 //^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$
             if (/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]){6,10}$/.test(value)) {
                 return "the password must contain At least 6 characters and no more than 10, one digit and one lower case character"
