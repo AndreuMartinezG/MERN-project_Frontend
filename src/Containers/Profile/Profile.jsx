@@ -25,17 +25,28 @@ const Profile = (props) => {
             <div className="headerProfile">
                 <img
                     src="https://picsum.photos/id/1018/3000"
-                    className="object-cover w-full h-full rounded-b"
+                    className="headerProfileMainImg"
                     alt="cover"
                 />
-                <div className="absolute -bottom-6">
+                <div className="headerProfileImg">
                     <img
                         src="https://picsum.photos/id/1005/1000"
-                        className="object-cover border-4 border-white w-40 h-40 rounded-full"
+                        className="headerProfileBodyImg"
                         alt="cover"
                     />
+                    
                 </div>
+                
             </div>
+            <h3>{props.userData.user.firstName} {props.userData.user.lastName}</h3>
+            <div className="bodyProfile">
+                
+            </div>
+
+
+            
+
+
         </div>
     );
 }
