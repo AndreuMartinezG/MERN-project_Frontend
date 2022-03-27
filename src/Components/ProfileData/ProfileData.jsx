@@ -20,7 +20,7 @@ const ProfileData = (props) => {
                     <span className="userShowInfoTitle">{userData.firstName} {userData.lastName}</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">{userData.birthday} años</span>
+                    <span className="userShowInfoTitle">Birthday : {userData.birthday} </span>
                 </div>
                 <div className="userShowInfo">
                     <span className="userShowInfoTitle">Followed : {userData.followed.length} people</span>
@@ -30,10 +30,10 @@ const ProfileData = (props) => {
                 </div>
                 <span className="userShowTitle">Contact Details</span>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">{userData.userName}</span>
+                    <span className="userShowInfoTitle">Nick Name : {userData.userName}</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">{userData.email}</span>
+                    <span className="userShowInfoTitle">Email : {userData.email}</span>
                 </div>
 
             </div>
