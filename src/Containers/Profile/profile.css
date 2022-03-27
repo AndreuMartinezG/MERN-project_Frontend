@@ -4,3 +4,11 @@
     background-color: lightgray
     
 }
+
+.headerProfile {
+    position: relative; 
+    height: 10em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
