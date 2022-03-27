@@ -27,7 +27,8 @@ const Profile = (props) => {
             <h3>{props.userData.user.firstName} {props.userData.user.lastName}</h3>
             
             <div className="bodyProfile">
-                
+                <div className="halfBodyProfileL"></div>
+                <div className="halfBodyProfileR"></div>
             </div>
 
         </div>
