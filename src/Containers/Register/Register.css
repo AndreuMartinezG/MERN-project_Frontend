@@ -1,7 +1,8 @@
 .designRegister {
     height: 45.7em;
     width: 100vw;
-    background-color: lightgray;
+    background-image: url(../../img/fondito2.jpg);
+    background-size: 100%;
 
     display: flex;
     flex-direction: column;
@@ -14,25 +15,42 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     height: 30em;
     width: 30em;
+
+    border-radius: 2em;
 
     background-color: yellow;
 }
 
 .titulo {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    background-color: green;
+    
+    align-items: center;
+    height: 5em;
+    width: 30em;
+
+}
+
+.tituloReg {
+    font-size: 2em;
+    font-weight: bold;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    background-color: green;
-
-    height: 5em;
-    width: 30em;
-
-
+    text-align: center;
 }
 
 .inpunts {
@@ -70,7 +88,7 @@
     margin: .1em;
 
     border-radius: 3em;
-    
+
     background-color: bisque;
 
     transition: .5s;

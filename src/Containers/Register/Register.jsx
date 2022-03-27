@@ -100,7 +100,7 @@ const Register = (props) => {
         <div className='designRegister'>
 
             <div className="recuadro">
-                <div className="titulo"><p>Register form</p></div>
+                <div className="titulo"><p className='tituloReg'>Register form</p></div>
                 <div className="inpunts">
                     <input className='inp' type="text" name="firstName" id="fisrtName" title="fisrtName" placeholder="Name" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
                     <input className='inp' type="text" name="surname" id="lastName" title="lastName" placeholder="Surname" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
