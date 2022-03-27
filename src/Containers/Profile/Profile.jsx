@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import './profile.css'
+import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
 
 const Profile = (props) => {
 
@@ -22,30 +23,12 @@ const Profile = (props) => {
 
     return (
         <div className="designProfile">
-            <div className="headerProfile">
-                <img
-                    src="https://picsum.photos/id/1018/3000"
-                    className="headerProfileMainImg"
-                    alt="cover"
-                />
-                <div className="headerProfileImg">
-                    <img
-                        src="https://picsum.photos/id/1005/1000"
-                        className="headerProfileBodyImg"
-                        alt="cover"
-                    />
-                    
-                </div>
-                
-            </div>
+            <HeaderProfile />
             <h3>{props.userData.user.firstName} {props.userData.user.lastName}</h3>
+            
             <div className="bodyProfile">
                 
             </div>
-
-
-            
-
 
         </div>
     );
