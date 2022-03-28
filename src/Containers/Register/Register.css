@@ -1,5 +1,158 @@
 .designRegister {
-    height: 51em;
+    height: 45.7em;
     width: 100vw;
-    background-color: lightgray
+    background-image: url(../../img/fondito2.jpg);
+    background-size: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.recuadro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    height: 30em;
+    width: 30em;
+
+    border-radius: 2em;
+
+    color: black;
+    background-color:rgba(128, 128, 128, 0.329);
+}
+
+.titulo {
+    text-align: center;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    
+    
+    align-items: center;
+    height: 2em;
+    width: 30em;
+
+    font-size: 2em;
+    font-weight: bold;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+
+}
+
+.relleno {
+    width: 6em;
+    height: 2em;
+
+}
+
+.relleno2 {
+    width: 18em;
+    height: 4em;
+    
+    color: red;
+    font-size: 1em;
+    font-weight: bold;
+
+}
+
+.inpunts {
+
+    height: 20em;
+    width: 30em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: black;
+
+}
+
+.inp {
+    height: 2.5em;
+    width: 13em;
+
+    text-align: center;
+
+    margin: .1em;
+
+    border-radius: 3em;
+
+    cursor: pointer;
+
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.inp:hover {
+    height: 3em;
+    width: 15em;
+
+    text-align: center;
+
+    margin: .1em;
+
+    border-radius: 3em;
+
+    background-color: whitesmoke;
+
+    transition: .5s;
+    color: black;
+}
+
+.bottomCardRegister {
+    height: 5em;
+    width: 30em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.registerButton {
+    height: 4em;
+    width: 7em;
+
+    border-radius: 2em;
+
+    background-color: whitesmoke;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: black;
+    font-weight: bolder;
+}
+
+.registerButton:hover {
+    height: 3.5em;
+    width: 6em;
+    background-color: rgb(196, 233, 255);
+
+
+    border-color: .2em gray
+
+}
+
+.error {
+    height: 4em;
+    width: 25em;
+
+    background-color: pink;
 }
