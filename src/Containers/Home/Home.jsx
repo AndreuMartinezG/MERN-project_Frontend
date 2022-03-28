@@ -47,8 +47,7 @@ const Home = (props) => {
         props.dispatch({type: THREAD_DETAIL, payload: hilos});
 
 
-        //Redirigimos a movieDetail con navigate
-        navigate("/moviedetail");
+        navigate("/threadDetail");
     }
 
     if (threads.length !== 0) {
