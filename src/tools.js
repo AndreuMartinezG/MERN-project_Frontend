@@ -35,7 +35,6 @@ export const checkError = (type, value) => {
             break;*/ 
 
         case 'password2':
-                //^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$
                 if (! /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/.test(value)) {
         
                 return "the password must contain At least 6 characters and no more than 10, one digit and one lower case character"
@@ -43,13 +42,19 @@ export const checkError = (type, value) => {
                 return "ok";
             };
             
-        // case 'date':
+        case 'date':
                 
-        //     if (/^(1[0-2]|0?[1-9])/(3[01]|[12][0-9]|0?[1-9])/(?:[0-9]{2})?[0-9]{2}$/.test(value)) {
-        //         return "the date is wrong"
-        //     } else {
-        //         return "ok";
-        //     };
+            if (/^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/.test(value)) {
+                return "the date is wrong"
+            } else {
+                return "ok";
+            };
+
+            /* if(! /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/.test(fields[key]){
+                return "the date is wrong"
+            }else {
+                return "ok";
+            }*/
 
 
         case 'surname':
