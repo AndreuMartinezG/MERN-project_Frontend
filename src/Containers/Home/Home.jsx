@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import 'antd/dist/antd.min.css';
+import { THREAD_DETAIL } from '../../Redux/types';
 
 import './Home.css'
 
@@ -42,8 +43,8 @@ const Home = (props) => {
 
     const escogerHilo = (hilos) => {
         console.log(hilos);
-        //Guardamos la pelicula escogida en redux
-        props.dispatch({type:THREAD_DETAIL, payload: hilos});
+        //Guardamos el hilo escogido en redux
+        props.dispatch({type: THREAD_DETAIL, payload: hilos});
 
 
         //Redirigimos a movieDetail con navigate
@@ -57,7 +58,7 @@ const Home = (props) => {
                 {
                     threads.map(hilos => {
                         return(
-                        <div className='threads' key={hilos._id} >
+                        <div className='threads' key={hilos._id} onClick={escogerHilo}>
                             {console.log(hilos,"esto es hilo bro",hilos._id,"esto es el id")}
                             <div className='renThread'>{hilos.userName_owner}<br/>{hilos.headLine}</div>
                         </div>
