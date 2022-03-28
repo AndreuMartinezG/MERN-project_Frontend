@@ -20,7 +20,7 @@ const Home = (props) => {
     useEffect(() => {
         //UseEffect equivalente a componentDidUpdate (actualizado)
 
-    })
+    }, [threads])
 
     const traerHilos = async () => {
 
@@ -40,6 +40,16 @@ const Home = (props) => {
 
     }
 
+    const escogerHilo = (hilos) => {
+        console.log(hilos);
+        //Guardamos la pelicula escogida en redux
+        props.dispatch({type:THREAD_DETAIL, payload: hilos});
+
+
+        //Redirigimos a movieDetail con navigate
+        navigate("/moviedetail");
+    }
+
     if (threads.length !== 0) {
         return (
             <div className='designHome'>
@@ -47,8 +57,8 @@ const Home = (props) => {
                 {
                     threads.map(hilos => {
                         return(
-                        <div className='threads' key={hilos._id} onClick="">
-                            {console.log(hilos,"esto es hilo bro")}
+                        <div className='threads' key={hilos._id} >
+                            {console.log(hilos,"esto es hilo bro",hilos._id,"esto es el id")}
                             <div className='renThread'>{hilos.userName_owner}<br/>{hilos.headLine}</div>
                         </div>
                         )
@@ -63,6 +73,4 @@ const Home = (props) => {
     }
 }
 
-export default connect((state) => ({
-    //variables de rdx a crear
-}))(Home);
+export default connect()(Home);
