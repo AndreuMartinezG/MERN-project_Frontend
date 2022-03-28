@@ -26,8 +26,12 @@ const Home = (props) => {
 
         try {
             const response = await axios.get('http://localhost:5000/threads');
-            console.log(response.data);
-            setThreads(response.data);
+            console.log(response.data.userName_owner,"esto es el response");
+            
+            setTimeout(() => {
+                
+                setThreads(response.data);
+            }, 2000);
 
         } catch (error) {
             console.log(error);
@@ -36,15 +40,18 @@ const Home = (props) => {
 
     }
 
-    if (threads.length === 0) {
+    if (threads.length !== 0) {
         return (
             <div className='designHome'>
+                
                 {
                     threads.map(hilos => {
-                        <div className='threads' key={threads._id} onClick="">
-                            <div>{threads.userName_owner}{threads.headLine}</div>
+                        return(
+                        <div className='threads' key={hilos._id} onClick="">
+                            {console.log(hilos,"esto es hilo bro")}
+                            <div className='renThread'>{hilos.userName_owner}<br/>{hilos.headLine}</div>
                         </div>
-
+                        )
                     })
                 }
             </div>
