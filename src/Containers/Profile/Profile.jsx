@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-// import { Button } from 'antd'
-// import "antd/dist/antd.css";
+import { Button, Text, Textarea, Title } from "@mantine/core";
 
 import './profile.css'
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
@@ -13,6 +12,11 @@ const Profile = (props) => {
 
     let navigate = useNavigate();
 
+
+    //HOOKS 
+    const [userData, setUserData] = useState([{}]);
+    const [modifyState, setModifyState] = useState(true);
+    const [profileState, setProfileState] = useState(false);
 
     useEffect(() => {
         let userId = props.userData.user._id
@@ -26,10 +30,11 @@ const Profile = (props) => {
     })
 
 
+    /* Traemos todos los posts de un usuario */
     const userPosts = async (userId) => {
 
-        let body =  {id_owner : userId}
-        
+        let body = { id_owner: userId }
+
         // let config = {
         //     headers: { Authorization: `Bearer ${props.credentials.token}` }
         // };
@@ -39,12 +44,47 @@ const Profile = (props) => {
             let res = await axios.post(`http://localhost:5000/threads/post/${userId}`, body);
             console.log(res)
             console.log(res.data.length)
+            let reverse = res.data.reverse()
+            setUserData(reverse)
+            console.log(userData)
 
         } catch (error) {
             console.log(error)
         }
 
     }
+
+    /**
+     * Componente que muestra un post del hilo
+     */
+    const ThreadPost = (props) => {
+        const post = props.post;
+
+        return (
+            <div key={post._id} className='userShow' style={{
+                borderRadius: '3px',
+                width: '80%',
+                margin: '8px auto',
+                display: 'flex',
+                padding: '8px',
+                gap: '32px',
+
+            }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <img style={{ width: '48px', height: '48px' }}
+                        src="https://api.minimalavatars.com/avatar/random/png" />
+                    <Text weight={700}>{post.userName_owner}</Text>
+                </div>
+
+                <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
+                    <Text>{post.text_post}</Text>
+                    <Text>{post.created_post}</Text>
+                </div>
+            </div>
+        )
+    }
+
+
 
 
     return (
@@ -55,11 +95,50 @@ const Profile = (props) => {
             <div className="bodyProfile">
                 <div className="halfBodyProfileL">
                     <ProfileData />
+                    <Button
+                        type="submit"
+                        style={{ marginTop: '5em' }}
+                        variant="gradient"
+                        gradient={{ from: 'indigo', to: 'cyan' }}>{modifyState && "Modify Profile"}{profileState && `Go back`}</Button>
+                </div>
+                {modifyState &&
+                    <div className="halfBodyProfileR">
 
-                </div>
-                <div className="halfBodyProfileR">
-                    Last Posts
-                </div>
+                        {/** Título, Creador y fecha del hilo */}
+
+                        <Title order={4} style={{
+                            textTransform: 'uppercase'
+                        }}>Last Posts</Title>
+                        <hr style={{
+                            width: '60%',
+                            height: '1px',
+                            marginBottom: '2em'
+                        }} />
+                        {/** Mostramos la lista de post asociados al hilo */}
+                        {
+                            userData.map((post, index) => <ThreadPost key={index} post={post} />)
+                        }
+                    </div>
+                }
+                {profileState &&
+                    <div className="halfBodyProfileR">
+
+                        {/** Título, Creador y fecha del hilo */}
+
+                        <Title order={4} style={{
+                            textTransform: 'uppercase'
+                        }}>Last Posts</Title>
+                        <hr style={{
+                            width: '60%',
+                            height: '1px',
+                            marginBottom: '2em'
+                        }} />
+                        {/** Mostramos la lista de post asociados al hilo */}
+                        {
+                            userData.map((post, index) => <ThreadPost key={index} post={post} />)
+                        }
+                    </div>
+                }
             </div>
 
         </div>
