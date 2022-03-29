@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Button, Text, Textarea, Title } from "@mantine/core";
+import { TextInput, Checkbox, Group, Box } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 import './profile.css'
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
@@ -96,66 +98,106 @@ const Profile = (props) => {
         }
     }
 
+    const Demo = () => {
+        const form = useForm({
+            initialValues: {
+                email: '',
+                termsOfService: false,
+            },
+
+            validate: {
+                email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+            },
+        });
 
         return (
-            <div className="designProfile">
-                <HeaderProfile />
-                <h2>{props.userData.user.firstName} {props.userData.user.lastName}</h2>
+            <Box sx={{ maxWidth: 300 }} mx="auto">
+                <form onSubmit={form.onSubmit((values) => console.log(values))}>
+                    <TextInput
+                        required
+                        label="Email"
+                        placeholder="your@email.com"
+                        {...form.getInputProps('email')}
+                    />
 
-                <div className="bodyProfile">
-                    <div className="halfBodyProfileL">
-                        <ProfileData />
-                        <Button
-                            type="submit"
-                            onClick={() => handler()}
-                            style={{ marginTop: '5em' }}
-                            variant="gradient"
-                            gradient={{ from: 'indigo', to: 'cyan' }}>{modifyState && "Modify Profile"}{profileState && `Go back`}</Button>
-                    </div>
-                    {modifyState &&
-                        <div className="halfBodyProfileR">
+                    <Checkbox
+                        mt="md"
+                        label="I agree to sell my privacy"
+                        {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+                    />
 
-                            {/** Título, Creador y fecha del hilo */}
-
-                            <Title order={4} style={{
-                                textTransform: 'uppercase'
-                            }}>Last Posts</Title>
-                            <hr style={{
-                                width: '60%',
-                                height: '1px',
-                                marginBottom: '2em'
-                            }} />
-                            {/** Mostramos la lista de post asociados al hilo */}
-                            {
-                                userData.map((post, index) => <ThreadPost key={index} post={post} />)
-                            }
-                        </div>
-                    }
-                    {profileState &&
-                        <div className="halfBodyProfileR">
-
-                            {/** Título, Creador y fecha del hilo */}
-
-                            <Title order={4} style={{
-                                textTransform: 'uppercase'
-                            }}>Modify Profile</Title>
-                            <hr style={{
-                                width: '60%',
-                                height: '1px',
-                                marginBottom: '2em'
-                            }} />
-                            {/** Mostramos la lista de post asociados al hilo */}
-                            {
-                                userData.map((post, index) => <ThreadPost key={index} post={post} />)
-                            }
-                        </div>
-                    }
-                </div>
-
-            </div>
+                    <Group position="right" mt="md">
+                        <Button type="submit">Submit</Button>
+                    </Group>
+                </form>
+            </Box>
         );
     }
 
-    export default connect((state) => ({
-        userData: state.credentials
-    }))(Profile);
+    return (
+        <div className="designProfile">
+            <HeaderProfile />
+            <h2>{props.userData.user.firstName} {props.userData.user.lastName}</h2>
+
+            <div className="bodyProfile">
+                <div className="halfBodyProfileL">
+                    <ProfileData />
+                    <Button
+                        type="submit"
+                        onClick={() => handler()}
+                        style={{ marginTop: '5em' }}
+                        variant="gradient"
+                        gradient={{ from: 'indigo', to: 'cyan' }}>{modifyState && "Modify Profile"}{profileState && `Go back`}</Button>
+                </div>
+
+                {/* Aqui va mostrar post del usuario */}
+
+                {profileState &&
+                    <div className="halfBodyProfileR">
+
+                        {/** Título, Creador y fecha del hilo */}
+
+                        <Title order={4} style={{
+                            textTransform: 'uppercase'
+                        }}>Last Posts</Title>
+                        <hr style={{
+                            width: '60%',
+                            height: '1px',
+                            marginBottom: '2em'
+                        }} />
+                        {/** Mostramos la lista de post asociados al hilo */}
+                        <Demo />
+
+                    </div>
+                }
+
+                {/* Aqui va modificacion del perfil */}
+
+                {modifyState &&
+                    <div className="halfBodyProfileR">
+
+                        {/** Título, Creador y fecha del hilo */}
+
+                        <Title order={4} style={{
+                            textTransform: 'uppercase'
+                        }}>Modify Profile</Title>
+                        <hr style={{
+                            width: '60%',
+                            height: '1px',
+                            marginBottom: '2em'
+                        }} />
+                        {/** Mostramos la lista de post asociados al hilo */}
+                        {
+                            userData.map((post, index) => <ThreadPost key={index} post={post} />)
+                        }
+                    </div>
+                }
+            </div>
+
+        </div>
+    );
+}
+
+export default connect((state) => ({
+    userData: state.credentials
+}))(Profile);
