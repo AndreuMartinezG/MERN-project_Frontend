@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Button } from 'antd'
-import "antd/dist/antd.css";
+// import { Button } from 'antd'
+// import "antd/dist/antd.css";
 
 import './profile.css'
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
@@ -38,6 +38,7 @@ const Profile = (props) => {
             console.log(body)
             let res = await axios.post(`http://localhost:5000/threads/post/${userId}`, body);
             console.log(res)
+            console.log(res.data.length)
 
         } catch (error) {
             console.log(error)
@@ -54,9 +55,7 @@ const Profile = (props) => {
             <div className="bodyProfile">
                 <div className="halfBodyProfileL">
                     <ProfileData />
-                    <Button type="primary" style={{marginTop: '5em'}}>
-                        Modify Profile
-                    </Button>
+
                 </div>
                 <div className="halfBodyProfileR">
                     Last Posts
