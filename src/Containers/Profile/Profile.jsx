@@ -84,67 +84,78 @@ const Profile = (props) => {
         )
     }
 
+    //Cambio de vistas de Modificar perfil o ver post
+
+    const handler = () => {
+        if (modifyState) {
+            setModifyState(false)
+            setProfileState(true)
+        } else {
+            setModifyState(true)
+            setProfileState(false)
+        }
+    }
 
 
+        return (
+            <div className="designProfile">
+                <HeaderProfile />
+                <h2>{props.userData.user.firstName} {props.userData.user.lastName}</h2>
 
-    return (
-        <div className="designProfile">
-            <HeaderProfile />
-            <h2>{props.userData.user.firstName} {props.userData.user.lastName}</h2>
+                <div className="bodyProfile">
+                    <div className="halfBodyProfileL">
+                        <ProfileData />
+                        <Button
+                            type="submit"
+                            onClick={() => handler()}
+                            style={{ marginTop: '5em' }}
+                            variant="gradient"
+                            gradient={{ from: 'indigo', to: 'cyan' }}>{modifyState && "Modify Profile"}{profileState && `Go back`}</Button>
+                    </div>
+                    {modifyState &&
+                        <div className="halfBodyProfileR">
 
-            <div className="bodyProfile">
-                <div className="halfBodyProfileL">
-                    <ProfileData />
-                    <Button
-                        type="submit"
-                        style={{ marginTop: '5em' }}
-                        variant="gradient"
-                        gradient={{ from: 'indigo', to: 'cyan' }}>{modifyState && "Modify Profile"}{profileState && `Go back`}</Button>
+                            {/** Título, Creador y fecha del hilo */}
+
+                            <Title order={4} style={{
+                                textTransform: 'uppercase'
+                            }}>Last Posts</Title>
+                            <hr style={{
+                                width: '60%',
+                                height: '1px',
+                                marginBottom: '2em'
+                            }} />
+                            {/** Mostramos la lista de post asociados al hilo */}
+                            {
+                                userData.map((post, index) => <ThreadPost key={index} post={post} />)
+                            }
+                        </div>
+                    }
+                    {profileState &&
+                        <div className="halfBodyProfileR">
+
+                            {/** Título, Creador y fecha del hilo */}
+
+                            <Title order={4} style={{
+                                textTransform: 'uppercase'
+                            }}>Modify Profile</Title>
+                            <hr style={{
+                                width: '60%',
+                                height: '1px',
+                                marginBottom: '2em'
+                            }} />
+                            {/** Mostramos la lista de post asociados al hilo */}
+                            {
+                                userData.map((post, index) => <ThreadPost key={index} post={post} />)
+                            }
+                        </div>
+                    }
                 </div>
-                {modifyState &&
-                    <div className="halfBodyProfileR">
 
-                        {/** Título, Creador y fecha del hilo */}
-
-                        <Title order={4} style={{
-                            textTransform: 'uppercase'
-                        }}>Last Posts</Title>
-                        <hr style={{
-                            width: '60%',
-                            height: '1px',
-                            marginBottom: '2em'
-                        }} />
-                        {/** Mostramos la lista de post asociados al hilo */}
-                        {
-                            userData.map((post, index) => <ThreadPost key={index} post={post} />)
-                        }
-                    </div>
-                }
-                {profileState &&
-                    <div className="halfBodyProfileR">
-
-                        {/** Título, Creador y fecha del hilo */}
-
-                        <Title order={4} style={{
-                            textTransform: 'uppercase'
-                        }}>Last Posts</Title>
-                        <hr style={{
-                            width: '60%',
-                            height: '1px',
-                            marginBottom: '2em'
-                        }} />
-                        {/** Mostramos la lista de post asociados al hilo */}
-                        {
-                            userData.map((post, index) => <ThreadPost key={index} post={post} />)
-                        }
-                    </div>
-                }
             </div>
+        );
+    }
 
-        </div>
-    );
-}
-
-export default connect((state) => ({
-    userData: state.credentials
-}))(Profile);
+    export default connect((state) => ({
+        userData: state.credentials
+    }))(Profile);
