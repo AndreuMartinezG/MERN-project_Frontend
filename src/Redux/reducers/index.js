@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux';
 
+import threads from './threadDetail-reducer';
 import credentials from './datosLogin-reducer';
 
 const rootReducer = combineReducers({
-    credentials,
+    threads,
+    credentials
 });
 
 export default rootReducer;

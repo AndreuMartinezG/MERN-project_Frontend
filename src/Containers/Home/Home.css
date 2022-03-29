@@ -1,5 +1,6 @@
 .designHome {
-    height: 51em;
+    height: 45.7em;
     width: 100vw;
-    background-color: lightgray
+    background-image: url(../../img/fondito2.jpg);
+    background-size: cover;
 }
