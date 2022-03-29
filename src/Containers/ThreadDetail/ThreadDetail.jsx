@@ -5,10 +5,15 @@ import { Button, Typography } from 'antd';
 import { Input } from 'antd';
 
 import './ThreadDetail.css'
+import axios from 'axios';
+import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
+/**
+ * Componente que muestra un post del hilo
+ */
 const ThreadPost = (props) => {
     const post = props.post;
 
@@ -23,7 +28,8 @@ const ThreadPost = (props) => {
             gap: '32px',
         }}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <img style={{ width: '48px', height: '48px' }} src="https://api.minimalavatars.com/avatar/random/png" />
+                <img style={{ width: '48px', height: '48px' }}
+                    src="https://api.minimalavatars.com/avatar/random/png" />
                 <Text strong>{post.userName_owner}</Text>
             </div>
 
@@ -35,15 +41,44 @@ const ThreadPost = (props) => {
     )
 }
 
-const NewThreadPostForm = () => {
+/**
+ * Componente que muestra el formulario para crear un nuevo post del hilo
+ */
+const __NewThreadPostForm = (props) => {
     const [formData, setformData] = useState({ postContent: '' })
 
     const modifyData = (e) => {
         setformData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const updateInfo = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/threads');
+
+            props.dispatch({ type: SET_THREADS, payload: response.data });
+
+            const hilo = response.data.find(hilo => hilo._id === props.threadId);
+
+            props.dispatch({ type: THREAD_DETAIL, payload: hilo });
+
+            setformData({ ...formData, postContent: '' });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const createNewPost = (e) => {
         // Crear el nuevo post en el servidor
+        const data = {
+            _id: props.thread._id,
+            id_owner: props.idOwner,
+            userName_owner: props.userName,
+            headLine_post: 'XXX',
+            text_post: formData.postContent,
+        }
+
+        axios.post('http://localhost:5000/threads/post', data)
+            .then(() => { updateInfo() });
     }
 
     return <form
@@ -63,6 +98,15 @@ const NewThreadPostForm = () => {
     </form>;
 }
 
+/**
+ * Componente que muestra el formulario para crear un nuevo post del hilo
+ * Wrapper del componente __NewThreadPostForm usando connect
+ */
+const NewThreadPostForm = connect((state) => ({
+    thread: state.threads.selectedThread,
+    idOwner: state.credentials.user._id,
+    userName: state.credentials.user.userName,
+}))(__NewThreadPostForm);
 
 const ThreadDetail = (props) => {
     const thread = props.thread;
@@ -89,7 +133,7 @@ const ThreadDetail = (props) => {
             }
 
             {/** Formulario para crear un nuevo post */}
-            <NewThreadPostForm />
+            <NewThreadPostForm threadId={thread._id} />
 
         </div>
 

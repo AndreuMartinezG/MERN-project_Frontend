@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import 'antd/dist/antd.min.css';
-import { THREAD_DETAIL } from '../../Redux/types';
+import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
 
 import './Home.css'
 
@@ -11,7 +11,8 @@ const Home = (props) => {
 
     let navigate = useNavigate();
 
-    const [threads, setThreads] = useState([]);
+    // Threads ya no se usa, se usa el state de redux
+    const threads = props.threads;
 
     useEffect(() => {
         //UseEffect equivalente a componentDidMount (montado)
@@ -30,14 +31,13 @@ const Home = (props) => {
             console.log(response.data.userName_owner, "esto es el response");
 
             setTimeout(() => {
-
-                setThreads(response.data);
+                // Ya no usamos useState, se usa el state de redux
+                props.dispatch({ type: SET_THREADS, payload: response.data });
             }, 2000);
 
         } catch (error) {
             console.log(error);
         }
-
 
     }
 
@@ -73,4 +73,7 @@ const Home = (props) => {
     }
 }
 
-export default connect()(Home);
+// Conectar con redux
+export default connect(state => ({
+    threads: state.threads.threads
+}))(Home);
