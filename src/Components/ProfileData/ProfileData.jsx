@@ -23,10 +23,10 @@ const ProfileData = (props) => {
                     <span className="userShowInfoTitle">Birthday : {userData.birthday} </span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Followed : {userData.followed.length} people</span>
+                    <span className="userShowInfoTitle">Followed : {userData.followed?.length} people</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Followers : {userData.followers.length}</span>
+                    <span className="userShowInfoTitle">Followers : {userData.followers?.length}</span>
                 </div>
                 <span className="userShowTitle">Contact Details</span>
                 <div className="userShowInfo">
