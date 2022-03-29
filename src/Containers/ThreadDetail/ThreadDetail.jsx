@@ -1,32 +1,115 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux'
 
 import { Button, Typography } from 'antd';
 import { Input } from 'antd';
 
-import axios from 'axios';
 import './ThreadDetail.css'
+import axios from 'axios';
+import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
+/**
+ * Componente que muestra un post del hilo
+ */
+const ThreadPost = (props) => {
+    const post = props.post;
 
-const ThreadDetail = (props) => {
-    const [thread, setThread] = useState(null);
-    const [formData, setformData] = useState({ postTitle: '', postContent: '' })
+    return (
+        <div key={post._id} style={{
+            border: '1px solid black',
+            borderRadius: '3px',
+            width: '80%',
+            margin: '8px auto',
+            display: 'flex',
+            padding: '8px',
+            gap: '32px',
+        }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <img style={{ width: '48px', height: '48px' }}
+                    src="https://api.minimalavatars.com/avatar/random/png" />
+                <Text strong>{post.userName_owner}</Text>
+            </div>
+
+            <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
+                <Text>{post.text_post}</Text>
+                <Text>{post.created_post}</Text>
+            </div>
+        </div>
+    )
+}
+
+/**
+ * Componente que muestra el formulario para crear un nuevo post del hilo
+ */
+const __NewThreadPostForm = (props) => {
+    const [formData, setformData] = useState({ postContent: '' })
 
     const modifyData = (e) => {
         setformData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const createNewPost = (e) => {
-        console.log(formData);
+    const updateInfo = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/threads');
+
+            props.dispatch({ type: SET_THREADS, payload: response.data });
+
+            const hilo = response.data.find(hilo => hilo._id === props.threadId);
+
+            props.dispatch({ type: THREAD_DETAIL, payload: hilo });
+
+            setformData({ ...formData, postContent: '' });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/threads')
-            .then(res => setThread(res.data[0]));
-    }, []);
+    const createNewPost = (e) => {
+        // Crear el nuevo post en el servidor
+        const data = {
+            _id: props.thread._id,
+            id_owner: props.idOwner,
+            userName_owner: props.userName,
+            headLine_post: 'XXX',
+            text_post: formData.postContent,
+        }
+
+        axios.post('http://localhost:5000/threads/post', data)
+            .then(() => { updateInfo() });
+    }
+
+    return <form
+        onSubmit={(e) => createNewPost(e)}
+        style={{
+            margin: '0px auto',
+            padding: '20px 0px',
+            width: '80%',
+            textAlign: 'left'
+        }}>
+        <Title level={2}>Write your opinion:</Title>
+
+        <Text strong>Content</Text>
+        <TextArea name="postContent" value={formData.postContent} onChange={(e) => modifyData(e)} placeholder='Type your opinion!' />
+
+        <Button type="primary" onClick={(e) => createNewPost(e)} style={{ marginTop: '15px' }}>Send</Button>
+    </form>;
+}
+
+/**
+ * Componente que muestra el formulario para crear un nuevo post del hilo
+ * Wrapper del componente __NewThreadPostForm usando connect
+ */
+const NewThreadPostForm = connect((state) => ({
+    thread: state.threads.selectedThread,
+    idOwner: state.credentials.user._id,
+    userName: state.credentials.user.userName,
+}))(__NewThreadPostForm);
+
+const ThreadDetail = (props) => {
+    const thread = props.thread;
 
     return (
         // Mostramos información del hilo
@@ -42,57 +125,22 @@ const ThreadDetail = (props) => {
             <Text>Owner: {thread.userName_owner}</Text>
             <Text>{thread.created}</Text>
 
-            <Title level={2}>Posts</Title>
+            <Title level={2}>Posts ({thread.post.length})</Title>
 
             {/** Mostramos la lista de post asociados al hilo */}
             {
-                thread.post.map(post => {
-                    return (
-                        <div key={post._id} style={{
-                            border: '1px solid black',
-                            borderRadius: '3px',
-                            width: '80%',
-                            margin: '8px auto',
-                        }}>
-                            <Title level={3}>{post.headLine_post}</Title>
-                            <Text strong>{post.userName_owner}</Text>
-                            <Text>{post.text_post}</Text>
-                            <br />
-                            <Text>{post.created_post}</Text>
-                        </div>
-                    );
-                })
+                thread.post.map(post => <ThreadPost post={post} />)
             }
 
             {/** Formulario para crear un nuevo post */}
-            <form
-                onSubmit={(e) => createNewPost(e)}
-                style={{
-                    margin: '0px auto',
-                    padding: '20px 0px',
-                    width: '80%',
-                    textAlign: 'left'
-                }}>
-                <Title level={2}>Write your opinion:</Title>
+            <NewThreadPostForm threadId={thread._id} />
 
-                <Text strong>Title</Text>
-                <Input name="postTitle" value={formData.postTitle} onChange={(e) => modifyData(e)} placeholder='Type the title for the post' />
-
-                <div style={{ height: '15px' }}></div>
-
-                <Text strong>Content</Text>
-                <TextArea name="postContent" value={formData.postContent} onChange={(e) => modifyData(e)} placeholder='Type your opinion!' />
-
-                <Button type="primary" onClick={(e) => createNewPost(e)} style={{ marginTop: '15px' }}>Send</Button>
-            </form>
         </div>
 
         || <div>Cargando..</div>
     )
 }
 
-
-
 export default connect((state) => ({
-    //variables de rdx a crear
+    thread: state.threads.selectedThread
 }))(ThreadDetail);

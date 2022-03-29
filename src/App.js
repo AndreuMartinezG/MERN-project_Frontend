@@ -27,7 +27,7 @@ function App() {
           <Route path={'/login'} element={<Login />} />
           
           
-          <Route path={'/thread'} element={<ThreadDetail />} />
+          <Route path={'/threadDetail'} element={<ThreadDetail />} />
         </Routes>
 
         <Footer />
