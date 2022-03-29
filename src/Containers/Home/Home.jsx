@@ -21,7 +21,7 @@ const Home = (props) => {
     useEffect(() => {
         //UseEffect equivalente a componentDidUpdate (actualizado)
 
-    }, [threads])
+    }, [])
 
     const traerHilos = async () => {
 
@@ -29,11 +29,7 @@ const Home = (props) => {
             const response = await axios.get('http://localhost:5000/threads');
             console.log(response.data.userName_owner, "esto es el response");
 
-            setTimeout(() => {
-
                 setThreads(response.data);
-            }, 2000);
-
         } catch (error) {
             console.log(error);
         }
@@ -51,12 +47,23 @@ const Home = (props) => {
     }
 
     const rellenarDatos = (e) => {
-        setDatosUsuario({
-            ...datosUsuario,
+        setThreads({
+            ...threads,
             [e.target.name]: e.target.value
         })
     };
 
+    const crearHilo = async () => {
+        try {
+            let response = await axios.post('http://localhost:5000/threads');
+            console.log(response.data, "este es el hilo NUEVO");
+
+            setThreads(response.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
     if (threads.length !== 0) {
         return (
             <div className='designHome'>
@@ -72,8 +79,8 @@ const Home = (props) => {
                     })
                 }
                 <div>
-                    <input className='' type="string" name="headline" id="headline" title="headline" placeholder="topic" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <div className='buttonThreadNew'></div>
+                    <input className='' type="text" name="headline" id="headline" title="headline" placeholder="topic" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+                    <div className='buttonThreadNew' onClick={rellenarDatos}>submit</div>
                 </div>
             </div>
         )
@@ -84,4 +91,11 @@ const Home = (props) => {
     }
 }
 
-export default connect()(Home);
+export default connect((state) => {
+    return {
+        threads: state.threads,
+        Credentials: state.Credentials
+    }
+})(Home);
+
+ 

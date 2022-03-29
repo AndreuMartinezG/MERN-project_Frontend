@@ -4,3 +4,10 @@
     background-image: url(../../img/fondito2.jpg);
     background-size: cover;
 }
+
+.buttonThreadNew {
+    height: 4em;
+    width: 4em;
+
+    background-color: pink;
+}
