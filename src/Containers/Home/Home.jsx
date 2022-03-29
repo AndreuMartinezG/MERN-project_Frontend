@@ -27,7 +27,6 @@ const Home = (props) => {
 
         try {
             const response = await axios.get('http://localhost:5000/threads');
-            console.log(response.data.userName_owner, "esto es el response");
 
                 setThreads(response.data);
         } catch (error) {
