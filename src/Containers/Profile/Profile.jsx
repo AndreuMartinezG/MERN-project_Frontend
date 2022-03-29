@@ -98,36 +98,53 @@ const Profile = (props) => {
         }
     }
 
-    const Demo = () => {
+
+    //Apartado para la modificacion del perfil
+
+    const UpdateUserForm = (props) => {
+        console.log("SOY PROPS", props)
         const form = useForm({
             initialValues: {
-                email: '',
-                termsOfService: false,
+                email: `${props.data.email}`,
+                firstName: `${props.data.firstName}`,
+                lastName: `${props.data.lastName}`,
+                userName: `${props.data.userName}`,
+
             },
 
             validate: {
-                email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+
+                firstName: (value) => (/[a-z]/gi.test(value) ? null : 'Invalid first name'),
+                lastName: (value) => (/[a-z]/gi.test(value) ? null : 'Invalid last name'),
+                userName: (value) => (/[a-z]/gi.test(value) ? null : 'Invalid user name'),
+
             },
         });
-
+        console.log("ESTAMOS EN MODIFICAAAAAR")
         return (
             <Box sx={{ maxWidth: 300 }} mx="auto">
                 <form onSubmit={form.onSubmit((values) => console.log(values))}>
                     <TextInput
                         required
-                        label="Email"
-                        placeholder="your@email.com"
-                        {...form.getInputProps('email')}
+                        label="First Name"
+                        placeholder="FirstName"
+                        {...form.getInputProps('firstName')}
+                    />
+                    <TextInput
+                        required
+                        label="Last Name"
+                        placeholder="LastName"
+                        {...form.getInputProps('lastName')}
+                    />
+                    <TextInput
+                        required
+                        label="User Name"
+                        placeholder="UserName"
+                        {...form.getInputProps('userName')}
                     />
 
-                    <Checkbox
-                        mt="md"
-                        label="I agree to sell my privacy"
-                        {...form.getInputProps('termsOfService', { type: 'checkbox' })}
-                    />
-
-                    <Group position="right" mt="md">
-                        <Button type="submit">Submit</Button>
+                    <Group position="center" mt="md">
+                        <Button type="submit">Save</Button>
                     </Group>
                 </form>
             </Box>
@@ -153,20 +170,20 @@ const Profile = (props) => {
                 {/* Aqui va mostrar post del usuario */}
 
                 {profileState &&
-                    <div className="halfBodyProfileR">
+                    <div className="halfBodyProfileR userShow">
 
                         {/** Título, Creador y fecha del hilo */}
 
                         <Title order={4} style={{
                             textTransform: 'uppercase'
-                        }}>Last Posts</Title>
+                        }}>Modify Profile </Title>
                         <hr style={{
                             width: '60%',
                             height: '1px',
                             marginBottom: '2em'
                         }} />
                         {/** Mostramos la lista de post asociados al hilo */}
-                        <Demo />
+                        <UpdateUserForm data={props.userData.user} />
 
                     </div>
                 }
@@ -174,13 +191,13 @@ const Profile = (props) => {
                 {/* Aqui va modificacion del perfil */}
 
                 {modifyState &&
-                    <div className="halfBodyProfileR">
+                    <div className="halfBodyProfileR userShow">
 
                         {/** Título, Creador y fecha del hilo */}
 
                         <Title order={4} style={{
                             textTransform: 'uppercase'
-                        }}>Modify Profile</Title>
+                        }}>Last Posts</Title>
                         <hr style={{
                             width: '60%',
                             height: '1px',
