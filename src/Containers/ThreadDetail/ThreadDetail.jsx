@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
 
-import { Button, Typography } from 'antd';
-import { Input } from 'antd';
+import { Button, Text, Textarea, Title } from "@mantine/core";
 
 import './ThreadDetail.css'
 import axios from 'axios';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
 
-const { Title, Text } = Typography;
-const { TextArea } = Input;
 
 /**
  * Componente que muestra un post del hilo
@@ -30,7 +27,7 @@ const ThreadPost = (props) => {
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <img style={{ width: '48px', height: '48px' }}
                     src="https://api.minimalavatars.com/avatar/random/png" />
-                <Text strong>{post.userName_owner}</Text>
+                <Text weight={700}>{post.userName_owner}</Text>
             </div>
 
             <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
@@ -68,6 +65,8 @@ const __NewThreadPostForm = (props) => {
     }
 
     const createNewPost = (e) => {
+        e.preventDefault();
+
         // Crear el nuevo post en el servidor
         const data = {
             _id: props.thread._id,
@@ -89,12 +88,16 @@ const __NewThreadPostForm = (props) => {
             width: '80%',
             textAlign: 'left'
         }}>
-        <Title level={2}>Write your opinion:</Title>
+        <Title order={2}>Write your opinion:</Title>
 
-        <Text strong>Content</Text>
-        <TextArea name="postContent" value={formData.postContent} onChange={(e) => modifyData(e)} placeholder='Type your opinion!' />
+        <Text weight={700}>Content</Text>
+        <Textarea name="postContent" value={formData.postContent} onChange={(e) => modifyData(e)} placeholder='Type your opinion!' />
 
-        <Button type="primary" onClick={(e) => createNewPost(e)} style={{ marginTop: '15px' }}>Send</Button>
+        <Button
+            type="submit"
+            style={{ marginTop: '15px' }}
+            variant="gradient"
+            gradient={{ from: 'indigo', to: 'cyan' }}>Send</Button>
     </form>;
 }
 
@@ -113,7 +116,7 @@ const ThreadDetail = (props) => {
 
     return (
         // Mostramos información del hilo
-        thread !== null &&
+
         <div style={{
             width: '100%',
             display: 'flex',
@@ -125,7 +128,7 @@ const ThreadDetail = (props) => {
             <Text>Owner: {thread.userName_owner}</Text>
             <Text>{thread.created}</Text>
 
-            <Title level={2}>Posts ({thread.post.length})</Title>
+            <Title order={2}>Posts ({thread.post.length})</Title>
 
             {/** Mostramos la lista de post asociados al hilo */}
             {
@@ -136,8 +139,6 @@ const ThreadDetail = (props) => {
             <NewThreadPostForm threadId={thread._id} />
 
         </div>
-
-        || <div>Cargando..</div>
     )
 }
 
