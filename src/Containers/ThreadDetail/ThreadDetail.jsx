@@ -116,7 +116,7 @@ const ThreadDetail = (props) => {
 
     return (
         // Mostramos información del hilo
-        thread !== null &&
+
         <div style={{
             width: '100%',
             display: 'flex',
@@ -139,8 +139,6 @@ const ThreadDetail = (props) => {
             <NewThreadPostForm threadId={thread._id} />
 
         </div>
-
-        || <div>Cargando..</div>
     )
 }
 
