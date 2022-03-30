@@ -65,7 +65,7 @@ const Home = (props) => {
             [e.target.name]: e.target.value
         })
     };
-    const debouncedrellenarDatosUsuarios = debounce(rellenarDatos,2000);
+    const debouncedrellenarDatosUsuarios = debounce(rellenarDatos,1200);
 
     const crearHilo = async () => {
 
@@ -104,7 +104,7 @@ const Home = (props) => {
                                 <div >{hilo.userName_owner}<br />{hilo.headLine}</div>
                             </div>
                         )
-                    })
+                    }).reverse()
                 }<br />
 
 
@@ -126,7 +126,7 @@ const Home = (props) => {
                                 <div >{hilo.userName_owner}<br />{hilo.headLine}</div>
                             </div>
                         )
-                    })
+                    }).reverse()
                 }<br />
             </div>
         )
