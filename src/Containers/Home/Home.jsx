@@ -67,13 +67,13 @@ const Home = (props) => {
 
     const crearHilo = async () => {
 
-        let array = Object.entries(datosUsuarios);
-        console.log("SOY PROPSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ", props.userData.user._id );
+        // let array = Object.entries(datosUsuarios);
+        console.log("SOY PROPSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ", props.userData );
 
         let body = {
-            id_owner: props.userData.user._id
-            // userName_owner: props.userData.user.userName_owner,
-            // headLine: datosUsuarios.headLine
+            id_owner: props.userData.user._id,
+            userName_owner: props.userData.user.firstName,
+            headLine: datosUsuarios.headLine
         }
 
         console.log("esto es body", body);
@@ -96,13 +96,14 @@ const Home = (props) => {
                     threads.map(hilo => {
                         return (
                             <div className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
-                                <div className='renThread'>{hilo.userName_owner}<br />{hilo.headLine}</div>
+                                <div >{hilo.userName_owner}<br />{hilo.headLine}</div>
                             </div>
                         )
                     })
-                }
-                <div>
-                    <input className='' type="text" name="headline" id="headline" title="headline" placeholder="topic" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
+                }<br/>
+                <div className=''>
+                    CREAR NUEVO HILO: 
+                    <input className='' type="text" name="headLine" id="headLine" title="headLine" placeholder="topic" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
                     <div className='buttonThreadNew' onClick={crearHilo}>submit</div>
                 </div>
             </div>
