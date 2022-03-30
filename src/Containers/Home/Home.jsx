@@ -21,7 +21,7 @@ const Home = (props) => {
 
     useEffect(() => {
         //UseEffect equivalente a componentDidMount (montado)
-        let userId = props.userData.user._id
+        // let userId = props.userData.user._id
         
         traerHilos();
     }, [])
@@ -68,11 +68,12 @@ const Home = (props) => {
     const crearHilo = async () => {
 
         let array = Object.entries(datosUsuarios);
+        console.log("SOY PROPSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ", props.userData.user._id );
 
         let body = {
-            id_owner: props.userData.user._id,
-            userName_owner: props.userData.user.userName_owner,
-            headLine: datosUsuarios.headLine
+            id_owner: props.userData.user._id
+            // userName_owner: props.userData.user.userName_owner,
+            // headLine: datosUsuarios.headLine
         }
 
         console.log("esto es body", body);
@@ -116,5 +117,5 @@ const Home = (props) => {
 // Conectar con redux
 export default connect(state => ({
     threads: state.threads.threads,
-    userData: state.Credentials
+    userData: state.credentials
 }))(Home);
