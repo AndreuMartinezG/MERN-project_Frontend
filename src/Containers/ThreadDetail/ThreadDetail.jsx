@@ -15,8 +15,7 @@ const ThreadPost = (props) => {
     const post = props.post;
 
     return (
-        <div key={post._id} style={{
-            border: '1px solid black',
+        <div key={post._id} className='userShow' style={{
             borderRadius: '3px',
             width: '80%',
             margin: '8px auto',
@@ -132,7 +131,7 @@ const ThreadDetail = (props) => {
 
             {/** Mostramos la lista de post asociados al hilo */}
             {
-                thread.post.map(post => <ThreadPost post={post} />)
+                thread.post.map((post, index) => <ThreadPost key={index} post={post} />)
             }
 
             {/** Formulario para crear un nuevo post */}
