@@ -30,7 +30,7 @@ const Home = (props) => {
         //UseEffect equivalente a componentDidUpdate (actualizado)
         
 
-    }, [])
+    }, [threads])
 
     const traerHilos = async () => {
 
@@ -53,7 +53,6 @@ const Home = (props) => {
         //Guardamos el hilo escogido en redux
         props.dispatch({ type: THREAD_DETAIL, payload: hilo });
 
-        crearHilo();
 
         navigate("/threadDetail");
     }
@@ -72,7 +71,7 @@ const Home = (props) => {
 
         let body = {
             id_owner: props.userData.user._id,
-            userName_owner: props.userData.user.firstName,
+            userName_owner: props.userData.user.userName,
             headLine: datosUsuarios.headLine
         }
 
@@ -95,16 +94,18 @@ const Home = (props) => {
                 {
                     threads.map(hilo => {
                         return (
-                            <div className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
+                            <div  className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
                                 <div >{hilo.userName_owner}<br />{hilo.headLine}</div>
                             </div>
                         )
                     })
                 }<br/>
+
+                
                 <div className=''>
                     CREAR NUEVO HILO: 
                     <input className='' type="text" name="headLine" id="headLine" title="headLine" placeholder="topic" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <div className='buttonThreadNew' onClick={crearHilo}>submit</div>
+                    <div className='buttonThreadNew' onClick={()=>crearHilo()}>submit</div>
                 </div>
             </div>
         )
