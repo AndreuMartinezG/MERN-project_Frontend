@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
-import {userData} from '../../Redux/reducers/datosLogin-reducer';
+import { userData } from '../../Redux/reducers/datosLogin-reducer';
+import debounce from 'lodash.debounce';
 
 import './Home.css'
 
@@ -16,19 +17,19 @@ const Home = (props) => {
     const threads = props.threads;
 
     const [datosUsuarios, setDatosUsuarios] = useState({
-        id_owner :"", userName_owner :"", headLine :""
+        id_owner: "", userName_owner: "", headLine: ""
     });
 
     useEffect(() => {
         //UseEffect equivalente a componentDidMount (montado)
         // let userId = props.userData.user._id
-        
+
         traerHilos();
     }, [])
 
     useEffect(() => {
         //UseEffect equivalente a componentDidUpdate (actualizado)
-        
+
 
     }, [threads])
 
@@ -57,17 +58,19 @@ const Home = (props) => {
         navigate("/threadDetail");
     }
 
+    
     const rellenarDatos = (e) => {
         setDatosUsuarios({
             ...datosUsuarios,
             [e.target.name]: e.target.value
         })
     };
+    const debouncedrellenarDatosUsuarios = debounce(rellenarDatos,1200);
 
     const crearHilo = async () => {
 
         // let array = Object.entries(datosUsuarios);
-        console.log("SOY PROPSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ", props.userData );
+        console.log("SOY PROPSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ", props.userData);
 
         let body = {
             id_owner: props.userData.user._id,
@@ -79,7 +82,7 @@ const Home = (props) => {
 
         try {
 
-            let response = await axios.post('http://localhost:5000/threads',body);
+            let response = await axios.post('http://localhost:5000/threads', body);
             console.log(response.data, "este es el hilo NUEVO");
 
 
@@ -87,29 +90,48 @@ const Home = (props) => {
             console.log(error);
         }
     }
-    if (threads.length !== 0) {
+
+    if (props.userData.token !== null && threads.length !== 0) {
+        console.log("estamos en el if juaaaaaaaaaaan")
         return (
+
             <div className='designHome'>
 
                 {
                     threads.map(hilo => {
                         return (
-                            <div  className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
+                            <div className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
                                 <div >{hilo.userName_owner}<br />{hilo.headLine}</div>
                             </div>
                         )
-                    })
-                }<br/>
+                    }).reverse()
+                }<br />
 
-                
-                <div className=''>
-                    CREAR NUEVO HILO: 
-                    <input className='' type="text" name="headLine" id="headLine" title="headLine" placeholder="topic" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} />
-                    <div className='buttonThreadNew' onClick={()=>crearHilo()}>submit</div>
-                </div>
+
+                CREATE NEW THREAT:
+                <input className='' type="text" name="headLine" id="headLine" title="headLine" placeholder="topic" autoComplete="off" onChange={(e) => debouncedrellenarDatosUsuarios(e)} />
+                <div className='buttonThreadNew' onClick={() => crearHilo()}>submit</div>
             </div>
         )
-    } else {
+
+    } else if (threads.length !== 0) {
+        return (
+            <div className='designHome'>
+                
+                {console.log("estamos en el else iffffffff juaaaaaaaaaaan")}
+                {
+                    threads.map(hilo => {
+                        return (
+                            <div className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
+                                <div >{hilo.userName_owner}<br />{hilo.headLine}</div>
+                            </div>
+                        )
+                    }).reverse()
+                }<br />
+            </div>
+        )
+    }
+    else {
         return (
             <div className='designHome'>{"we don't have any thread at this moment"}</div>
         )
