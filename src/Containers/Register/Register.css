@@ -1,5 +1,5 @@
 .designRegister {
-    height: 45.7em;
+    height: 39em;
     width: 100vw;
     background-image: url(../../img/fondito2.jpg);
     background-size: cover;
@@ -74,6 +74,8 @@
 
     color: black;
 
+    text-align: center;
+
 
 }
 
@@ -90,8 +92,8 @@
     cursor: pointer;
 
     background-color: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.461);
-    color: black;
+    border: 1px solid rgba(0, 0, 0, 0.26);
+    color: rgba(0, 0, 0, 0.454);
     font-weight: bold;
     font-size: 1.2em;
 }
@@ -107,19 +109,21 @@
     border-radius: 3em;
 
     background-color: rgba(245, 245, 245, 0.349);
+    border: transparent;
+
 
     transition: .5s;
     color: black;
 }
 
 .date {
-    height: 3.2em;
-    width: 16em;
+    height: 3.3em;
+    width: 16.2em;
     text-align: center;
 }
 
 .date:hover {
-    height: 3.7em;
+    height: 3.9em;
     width: 18em;
     text-align: center;
 }
@@ -136,7 +140,7 @@
 }
 
 .registerButton {
-    height: 4em;
+    height: 3.8em;
     width: 7em;
 
     border-radius: 2em;
@@ -156,8 +160,9 @@
 
 .registerButton:hover {
     height: 3.5em;
-    width: 6em;
+    width: 6.5em;
     background-color: rgb(196, 233, 255);
+    transition: .2s;
 
 
     border-color: .2em gray

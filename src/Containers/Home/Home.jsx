@@ -65,7 +65,7 @@ const Home = (props) => {
             [e.target.name]: e.target.value
         })
     };
-    const debouncedrellenarDatosUsuarios = debounce(rellenarDatos,1200);
+    const debouncedrellenarDatosUsuarios = debounce(rellenarDatos,500);
 
     const crearHilo = async () => {
 
