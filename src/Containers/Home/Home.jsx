@@ -41,7 +41,7 @@ const Home = (props) => {
             setTimeout(() => {
                 // Ya no usamos useState, se usa el state de redux
                 props.dispatch({ type: SET_THREADS, payload: response.data });
-            }, 2000);
+            }, 1000);
 
         } catch (error) {
             console.log(error);
