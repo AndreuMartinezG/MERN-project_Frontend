@@ -74,6 +74,7 @@
 
     color: black;
 
+
 }
 
 .inp {
@@ -89,6 +90,7 @@
     cursor: pointer;
 
     background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.461);
     color: black;
     font-weight: bold;
     font-size: 1.2em;
@@ -104,15 +106,21 @@
 
     border-radius: 3em;
 
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, 0.349);
 
     transition: .5s;
     color: black;
 }
 
 .date {
-    height: 3.5em;
+    height: 3.2em;
     width: 16em;
+    text-align: center;
+}
+
+.date:hover {
+    height: 3.7em;
+    width: 18em;
     text-align: center;
 }
 
