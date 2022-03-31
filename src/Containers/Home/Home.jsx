@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
-import { userData } from '../../Redux/reducers/datosLogin-reducer';
+// import { userData } from '../../Redux/reducers/datosLogin-reducer';
 import debounce from 'lodash.debounce';
-import { Card, Image, Text, Input } from '@mantine/core';
+import { Button, Image, Text, Textarea, Title } from '@mantine/core';
 
 import './Home.css'
 
@@ -98,7 +98,7 @@ const Home = (props) => {
             <div className='designHome'>
 
                 {
-                    threads.map(hilo => {
+                    threads.slice(0,5).map(hilo => {
                         return (
                             <div className='userShow' onClick={() => escogerHilo(hilo)} key={hilo._id} style={{
                                 borderRadius: '3px',
@@ -126,9 +126,24 @@ const Home = (props) => {
                 }<br />
 
 
-                CREATE NEW THREAT:
-                <input className='' type="text" name="headLine" id="headLine" title="headLine" placeholder="topic" autoComplete="off" onChange={(e) => debouncedrellenarDatosUsuarios(e)} />
-                <div className='buttonThreadNew' onClick={() => crearHilo()}>submit</div>
+                <Title order={2}>CREATE NEW THREAT:</Title>
+                <Textarea  style={{
+            margin: '0px auto',
+            padding: '20px 0px',
+            width: '80%',
+            textAlign: 'left'
+        }}  type="text" name="headLine" id="headLine" title="headLine" placeholder="topic" autoComplete="off" onChange={(e) => debouncedrellenarDatosUsuarios(e)} />
+        {/* <Text weight={700}>Content</Text> */}
+        <Button
+            type="submit"
+            onClick={() => crearHilo()}
+            style={{ marginTop: '15px' }}
+            variant="gradient"
+            gradient={{ from: 'indigo', to: 'cyan' }}>Submit</Button>
+
+                {/* <div className='buttonThreadNew' onClick={() => crearHilo()}>submit</div> */}
+        {/* <Textarea name="headLine" autoComplete="off" onChange={(e) =>  debouncedrellenarDatosUsuarios(e)} placeholder='topic' /> */}
+
 
 
 
