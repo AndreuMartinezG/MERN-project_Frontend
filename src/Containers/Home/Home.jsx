@@ -100,18 +100,26 @@ const Home = (props) => {
                 {
                     threads.map(hilo => {
                         return (
-                            <div className='userShow' style={{
+                            <div className='userShow' onClick={() => escogerHilo(hilo)} key={hilo._id} style={{
                                 borderRadius: '3px',
-                                width: '80%',
+                                width: '50%',
                                 margin: '8px auto',
                                 display: 'flex',
                                 padding: '8px',
                                 gap: '32px',
-                            }} key={hilo._id} onClick={() => escogerHilo(hilo)}>
-                                
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            }}>
+
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
                                     <img style={{ width: '48px', height: '48px' }}
-                                        src="https://api.minimalavatars.com/avatar/random/png" />{hilo.userName_owner}<br />{hilo.headLine}</div>
+                                        src="https://api.minimalavatars.com/avatar/random/png" />
+                                    <br />
+                                    <Text weight={700}>{hilo.userName_owner}</Text>
+                                </div>
+
+                                <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
+                                    <Text>{hilo.headLine}</Text>
+                                </div>
+
                             </div>
                         )
                     }).reverse()
