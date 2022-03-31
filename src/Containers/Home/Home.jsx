@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
 import { userData } from '../../Redux/reducers/datosLogin-reducer';
 import debounce from 'lodash.debounce';
+import { Card, Image, Text, Input } from '@mantine/core';
 
 import './Home.css'
 
 const Home = (props) => {
-
 
     let navigate = useNavigate();
 
@@ -58,14 +58,14 @@ const Home = (props) => {
         navigate("/threadDetail");
     }
 
-    
+
     const rellenarDatos = (e) => {
         setDatosUsuarios({
             ...datosUsuarios,
             [e.target.name]: e.target.value
         })
     };
-    const debouncedrellenarDatosUsuarios = debounce(rellenarDatos,500);
+    const debouncedrellenarDatosUsuarios = debounce(rellenarDatos, 500);
 
     const crearHilo = async () => {
 
@@ -100,8 +100,18 @@ const Home = (props) => {
                 {
                     threads.map(hilo => {
                         return (
-                            <div className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
-                                <div >{hilo.userName_owner}<br />{hilo.headLine}</div>
+                            <div className='userShow' style={{
+                                borderRadius: '3px',
+                                width: '80%',
+                                margin: '8px auto',
+                                display: 'flex',
+                                padding: '8px',
+                                gap: '32px',
+                            }} key={hilo._id} onClick={() => escogerHilo(hilo)}>
+                                
+                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                    <img style={{ width: '48px', height: '48px' }}
+                                        src="https://api.minimalavatars.com/avatar/random/png" />{hilo.userName_owner}<br />{hilo.headLine}</div>
                             </div>
                         )
                     }).reverse()
@@ -111,19 +121,22 @@ const Home = (props) => {
                 CREATE NEW THREAT:
                 <input className='' type="text" name="headLine" id="headLine" title="headLine" placeholder="topic" autoComplete="off" onChange={(e) => debouncedrellenarDatosUsuarios(e)} />
                 <div className='buttonThreadNew' onClick={() => crearHilo()}>submit</div>
+
+
+
             </div>
         )
 
     } else if (threads.length !== 0) {
         return (
             <div className='designHome'>
-                
+
                 {console.log("estamos en el else iffffffff juaaaaaaaaaaan")}
                 {
                     threads.map(hilo => {
                         return (
                             <div className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
-                                <div >{hilo.userName_owner}<br />{hilo.headLine}</div>
+                                <div className='info' >{hilo.userName_owner}<br />{hilo.headLine}</div>
                             </div>
                         )
                     }).reverse()
