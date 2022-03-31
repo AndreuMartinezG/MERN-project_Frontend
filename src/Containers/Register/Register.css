@@ -110,6 +110,12 @@
     color: black;
 }
 
+.date {
+    height: 3.5em;
+    width: 16em;
+    text-align: center;
+}
+
 .bottomCardRegister {
     height: 5em;
     width: 30em;
