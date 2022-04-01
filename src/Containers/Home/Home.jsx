@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
 // import { userData } from '../../Redux/reducers/datosLogin-reducer';
 import debounce from 'lodash.debounce';
-import { Button, Image, Text, Textarea, Title } from '@mantine/core';
+import { Button, Text, Input, Textarea, Title } from '@mantine/core';
+
 
 import './Home.css'
 
@@ -15,6 +16,8 @@ const Home = (props) => {
 
     // Threads ya no se usa, se usa el state de redux
     const threads = props.threads;
+
+    threads.reverse();
 
     const [datosUsuarios, setDatosUsuarios] = useState({
         id_owner: "", userName_owner: "", headLine: ""
@@ -26,22 +29,22 @@ const Home = (props) => {
 
         traerHilos();
     }, [])
-
+    
     useEffect(() => {
         //UseEffect equivalente a componentDidUpdate (actualizado)
-
-
-    }, [threads])
+        
+        
+    },[threads])
 
     const traerHilos = async () => {
 
         try {
-            const response = await axios.get('http://localhost:5000/threads');
+            let response = await axios.get('http://localhost:5000/threads');
 
-            setTimeout(() => {
-                // Ya no usamos useState, se usa el state de redux
-                props.dispatch({ type: SET_THREADS, payload: response.data });
-            }, 1000);
+            // Ya no usamos useState, se usa el state de redux
+            props.dispatch({ type: SET_THREADS, payload: response.data });
+
+
 
         } catch (error) {
             console.log(error);
@@ -54,7 +57,6 @@ const Home = (props) => {
         //Guardamos el hilo escogido en redux
         props.dispatch({ type: THREAD_DETAIL, payload: hilo });
 
-
         navigate("/threadDetail");
     }
 
@@ -65,6 +67,7 @@ const Home = (props) => {
             [e.target.name]: e.target.value
         })
     };
+
     const debouncedrellenarDatosUsuarios = debounce(rellenarDatos, 500);
 
     const crearHilo = async () => {
@@ -85,35 +88,49 @@ const Home = (props) => {
             let response = await axios.post('http://localhost:5000/threads', body);
             console.log(response.data, "este es el hilo NUEVO");
 
+            window.location.reload();
 
         } catch (error) {
             console.log(error);
         }
     }
 
+
     if (props.userData.token !== null && threads.length !== 0) {
         console.log("estamos en el if juaaaaaaaaaaan")
+
         return (
 
             <div className='designHome'>
 
+                <Text weight={700}>The last five threads:</Text>
+
+                <Input variant="default" placeholder="buscar user" />
+
+
+                {/* let resultado = props.threads.slice(0,5); */}
+
+                {console.log(threads, "esto es threads")}
+
                 {
-                    threads.slice(0,5).map(hilo => {
+                    threads.map(hilo => {
                         return (
                             <div className='userShow' onClick={() => escogerHilo(hilo)} key={hilo._id} style={{
-                                borderRadius: '3px',
-                                width: '50%',
+                                borderRadius: '.3em',
+                                width: '40em',
                                 margin: '8px auto',
                                 display: 'flex',
-                                padding: '8px',
-                                gap: '32px',
+                                padding: '1em',
+                                gap: '50px',
                             }}>
 
                                 <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                    <img style={{ width: '48px', height: '48px' }}
+                                    <img style={{ width: '3em', height: '3em', justifyContent: 'center', alignItems: 'center' }}
                                         src="https://api.minimalavatars.com/avatar/random/png" />
                                     <br />
-                                    <Text weight={700}>{hilo.userName_owner}</Text>
+
+
+                                    <Text weight={700}>{(hilo.userName_owner)}</Text>
                                 </div>
 
                                 <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
@@ -123,26 +140,21 @@ const Home = (props) => {
                             </div>
                         )
                     }).reverse()
-                }<br />
-
-
-                <Title order={2}>CREATE NEW THREAT:</Title>
-                <Textarea  style={{
-            margin: '0px auto',
-            padding: '20px 0px',
-            width: '80%',
-            textAlign: 'left'
-        }}  type="text" name="headLine" id="headLine" title="headLine" placeholder="topic" autoComplete="off" onChange={(e) => debouncedrellenarDatosUsuarios(e)} />
-        {/* <Text weight={700}>Content</Text> */}
-        <Button
-            type="submit"
-            onClick={() => crearHilo()}
-            style={{ marginTop: '15px' }}
-            variant="gradient"
-            gradient={{ from: 'indigo', to: 'cyan' }}>Submit</Button>
-
-                {/* <div className='buttonThreadNew' onClick={() => crearHilo()}>submit</div> */}
-        {/* <Textarea name="headLine" autoComplete="off" onChange={(e) =>  debouncedrellenarDatosUsuarios(e)} placeholder='topic' /> */}
+                }
+                <Title order={3}>CREATE NEW THREAT:</Title>
+                <Textarea style={{
+                    margin: '0px auto',
+                    padding: '20px 0px',
+                    width: '30em',
+                    textAlign: 'center',
+                }} type="text" name="headLine" id="headLine" title="headLine" placeholder="what do you want to talk about ?" autoComplete="off" onChange={(e) => debouncedrellenarDatosUsuarios(e)} />
+                {/* <Text weight={700}>Content</Text> */}
+                <Button
+                    type="submit"
+                    onClick={() => crearHilo()}
+                    style={{ marginTop: '15px' }}
+                    variant="gradient"
+                    gradient={{ from: 'indigo', to: 'cyan' }}>Submit</Button>
 
 
 
