@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { connect, useSelector } from 'react-redux'
 
-import { Button, Text, Textarea, Title } from "@mantine/core";
+import { Button, Divider, Text, Textarea, Title } from "@mantine/core";
 
 import './ThreadDetail.css'
 import axios from 'axios';
@@ -11,8 +11,45 @@ import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
 /**
  * Componente que muestra un post del hilo
  */
-const ThreadPost = (props) => {
+const __ThreadPost = (props) => {
     const post = props.post;
+    const postUserId = post.id_owner;
+    const postId = post._id;
+    const threadId = useSelector(state => state.threads.selectedThread._id);
+
+    const [isEditing, setIsEditing] = useState(false);
+    const loggedUserId = useSelector(state => state.credentials.user._id);
+    const canUpdateOrDelete = loggedUserId === postUserId;
+
+    const updateInfo = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/threads');
+
+            props.dispatch({ type: SET_THREADS, payload: response.data });
+
+            const hilo = response.data.find(hilo => hilo._id === threadId);
+
+            props.dispatch({ type: THREAD_DETAIL, payload: hilo });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const deletePost = async () => {
+        const data = { postId, threadId };
+
+        await axios.delete('http://localhost:5000/threads/post', { data });
+
+        updateInfo();
+    }
+
+    const likePost = async () => {
+        const data = { postId, threadId };
+
+        await axios.post('http://localhost:5000/threads/post/like', data);
+
+        updateInfo();
+    }
 
     return (
         <div key={post._id} className='userShow' style={{
@@ -29,13 +66,103 @@ const ThreadPost = (props) => {
                 <Text weight={700}>{post.userName_owner}</Text>
             </div>
 
-            <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
-                <Text>{post.text_post}</Text>
-                <Text>{post.created_post}</Text>
+            <div style={{ width: '100%', textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
+                {isEditing
+                    && <UpdateThreadPostForm
+                        initialText={post.text_post}
+                        postId={postId}
+                        threadId={threadId}
+                        setIsEditing={setIsEditing}
+                    />
+                    || <div>
+                        <Text>{post.text_post}</Text>
+                        <Text>{post.created_post}</Text>
+                    </div>
+                }
+
+                <div style={{ marginTop: '20px', }}>
+                    <Divider my="sm" variant="dashed" />
+
+                    <div style={{ display: 'flex', justifyContent: "space-between" }}>
+                        <Button onClick={() => likePost()}>LIKE ({post.likes || 0})</Button>
+
+                        {canUpdateOrDelete &&
+                            <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px' }}>
+                                <Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Dejar de editar' : 'Editar'}</Button>
+                                <Button onClick={() => deletePost()} variant='outline' color="red">Eliminar</Button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
             </div>
         </div>
     )
 }
+
+const ThreadPost = connect()(__ThreadPost);
+
+/**
+ * Componente que muestra el formulario para editar el post de un hilo
+ */
+const __UpdateThreadPostForm = (props) => {
+    const { postId, threadId, initialText } = props;
+
+    const [formData, setformData] = useState({ postContent: initialText });
+
+    const modifyData = (e) => {
+        setformData({ ...formData, [e.target.name]: e.target.value });
+    }
+
+    const updateInfo = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/threads');
+
+            props.dispatch({ type: SET_THREADS, payload: response.data });
+
+            const hilo = response.data.find(hilo => hilo._id === threadId);
+
+            props.dispatch({ type: THREAD_DETAIL, payload: hilo });
+
+            props.setIsEditing(false)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const editPost = (e) => {
+        e.preventDefault();
+
+        // Crear el nuevo post en el servidor
+        const data = {
+            threadId,
+            postId,
+            postContent: formData.postContent
+        }
+
+        axios.patch('http://localhost:5000/threads/post', data)
+            .then(() => { updateInfo() });
+    }
+
+    return <form
+        onSubmit={(e) => editPost(e)}
+        style={{
+            margin: '0px auto',
+            padding: '20px 0px',
+            width: '80%',
+            textAlign: 'left'
+        }}>
+        <Textarea name="postContent" value={formData.postContent} onChange={(e) => modifyData(e)} placeholder='Type your opinion!' />
+
+        <Button
+            type="submit"
+            style={{ marginTop: '15px' }}
+            variant="gradient"
+            gradient={{ from: 'indigo', to: 'cyan' }}>Send</Button>
+    </form>;
+}
+
+const UpdateThreadPostForm = connect()(__UpdateThreadPostForm);
 
 /**
  * Componente que muestra el formulario para crear un nuevo post del hilo
@@ -110,6 +237,8 @@ const NewThreadPostForm = connect((state) => ({
     userName: state.credentials.user.userName,
 }))(__NewThreadPostForm);
 
+
+
 const ThreadDetail = (props) => {
     const thread = props.thread;
 
@@ -135,12 +264,13 @@ const ThreadDetail = (props) => {
             }
 
             {/** Formulario para crear un nuevo post */}
-            <NewThreadPostForm threadId={thread._id} />
+            {props.loggedUser && <NewThreadPostForm threadId={thread._id} />}
 
         </div>
     )
 }
 
 export default connect((state) => ({
-    thread: state.threads.selectedThread
+    thread: state.threads.selectedThread,
+    loggedUser: state.credentials.token !== null,
 }))(ThreadDetail);
