@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
-// import { userData } from '../../Redux/reducers/datosLogin-reducer';
 import debounce from 'lodash.debounce';
 import { Button, Text, Input, Textarea, Title } from '@mantine/core';
 
@@ -102,6 +101,15 @@ const Home = (props) => {
         return (
 
             <div className='designHome'>
+
+                <Input variant="default" placeholder="Search users" />
+                <Button
+                    type="submit"
+                    // onClick={() => crearHilo()}
+                    style={{ margin: '15px' }}
+                    color="dark"
+                    gradient={{ from: 'indigo', to: 'cyan' }}>search
+                </Button>
 
                 <Title color="gray" order={1}>Topics:</Title>
                 {console.log(threads, "esto es threads")}
