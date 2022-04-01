@@ -29,11 +29,6 @@ export const checkError = (type, value) => {
                 return "ok";
             };
 
-            /* case 'password' : ESTE ES EL CODIGO DE FER 
-                if(! /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(fields[key]))
-                    errors[key] = {status: 'error', help: 'La contraseña debe contener como mínimo 8 caracteres, mayúsculas, minúsculas, un número y algún caracter especial.'};
-            break;*/ 
-
         case 'password2':
                 if (! /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/.test(value)) {
         
