@@ -29,12 +29,12 @@ const Home = (props) => {
 
         traerHilos();
     }, [])
-    
+
     useEffect(() => {
         //UseEffect equivalente a componentDidUpdate (actualizado)
-        
-        
-    },[threads])
+
+
+    }, [threads])
 
     const traerHilos = async () => {
 
@@ -148,13 +148,13 @@ const Home = (props) => {
                     width: '30em',
                     textAlign: 'center',
                 }} type="text" name="headLine" id="headLine" title="headLine" placeholder="what do you want to talk about ?" autoComplete="off" onChange={(e) => debouncedrellenarDatosUsuarios(e)} />
-                {/* <Text weight={700}>Content</Text> */}
                 <Button
                     type="submit"
                     onClick={() => crearHilo()}
-                    style={{ marginTop: '15px' }}
-                    variant="gradient"
-                    gradient={{ from: 'indigo', to: 'cyan' }}>Submit</Button>
+                    style={{ margin: '15px' }}
+                    color="dark"
+                    gradient={{ from: 'indigo', to: 'cyan' }}>Submit
+                </Button>
 
 
 
