@@ -103,13 +103,7 @@ const Home = (props) => {
 
             <div className='designHome'>
 
-                <Text weight={700}>The last five threads:</Text>
-
-                <Input variant="default" placeholder="buscar user" />
-
-
-                {/* let resultado = props.threads.slice(0,5); */}
-
+                <Title color="gray" order={1}>Topics:</Title>
                 {console.log(threads, "esto es threads")}
 
                 {
@@ -165,17 +159,38 @@ const Home = (props) => {
     } else if (threads.length !== 0) {
         return (
             <div className='designHome'>
+                <Title color="gray" order={1}>Topics:</Title>
+                {console.log(threads, "esto es threads")}
 
-                {console.log("estamos en el else iffffffff juaaaaaaaaaaan")}
                 {
                     threads.map(hilo => {
                         return (
-                            <div className='threads' key={hilo._id} onClick={() => escogerHilo(hilo)}>
-                                <div className='info' >{hilo.userName_owner}<br />{hilo.headLine}</div>
+                            <div className='userShow' onClick={() => escogerHilo(hilo)} key={hilo._id} style={{
+                                borderRadius: '.3em',
+                                width: '40em',
+                                margin: '8px auto',
+                                display: 'flex',
+                                padding: '1em',
+                                gap: '50px',
+                            }}>
+
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <img style={{ width: '3em', height: '3em', justifyContent: 'center', alignItems: 'center' }}
+                                        src="https://api.minimalavatars.com/avatar/random/png" />
+                                    <br />
+
+
+                                    <Text weight={700}>{(hilo.userName_owner)}</Text>
+                                </div>
+
+                                <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
+                                    <Text>{hilo.headLine}</Text>
+                                </div>
+
                             </div>
                         )
                     }).reverse()
-                }<br />
+                }
             </div>
         )
     }
