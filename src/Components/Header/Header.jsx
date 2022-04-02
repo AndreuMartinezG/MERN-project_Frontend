@@ -72,7 +72,7 @@ const Header = (props) => {
                 notification.showNotification({
                     message: 'an error has ocurred',
                     color: "red",
-                    autoClose: 2000,
+                    autoclose: 2000,
                 })
             }
     }

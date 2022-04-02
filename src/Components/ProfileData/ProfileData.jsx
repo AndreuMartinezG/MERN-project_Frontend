@@ -7,7 +7,7 @@ import './ProfileData.css'
 
 const ProfileData = (props) => {
 
-    console.log(props)
+    console.log(props, "SOOOOOOOOOOOOOOOOOOOOOOOOOOY PROFILE DATA")
     
     const userData = props.userData;
 
@@ -17,23 +17,23 @@ const ProfileData = (props) => {
             <div className="userShowBottom">
                 <span className="userShowTitle">Account Details</span>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">{userData.firstName} {userData.lastName}</span>
+                    <span className="userShowInfoTitle">{userData.user.firstName} {userData.user.lastName}</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Birthday : {userData.birthday} </span>
+                    <span className="userShowInfoTitle">Birthday : {userData.user.birthday} </span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Followed : {userData.followed?.length} people</span>
+                    <span className="userShowInfoTitle">Followed : {userData.user.followed?.length} people</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Followers : {userData.followers?.length}</span>
+                    <span className="userShowInfoTitle">Followers : {userData.user.followers?.length}</span>
                 </div>
                 <span className="userShowTitle">Contact Details</span>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Nickname : {userData.userName}</span>
+                    <span className="userShowInfoTitle">Nickname : {userData.user.userName}</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Email : {userData.email}</span>
+                    <span className="userShowInfoTitle">Email : {userData.user.email}</span>
                 </div>
 
             </div>
@@ -41,5 +41,5 @@ const ProfileData = (props) => {
     )
 }
 export default connect((state) => ({
-    userData: state.credentials.user
+    userData: state.credentials
 }))(ProfileData);
