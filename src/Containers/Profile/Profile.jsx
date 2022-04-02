@@ -272,7 +272,7 @@ const Profile = (props) => {
                         }} />
                         {/** Mostramos la lista de post asociados al hilo */}
                         {
-                            userData.map((post, index) => <ThreadPost key={index} post={post} />)
+                            userData.map((post, index) => <ThreadPost key={index} post={post} />).slice(0, 5)
                         }
                     </div>
                 }
