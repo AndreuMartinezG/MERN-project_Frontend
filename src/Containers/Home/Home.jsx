@@ -72,7 +72,6 @@ const Home = (props) => {
     const crearHilo = async () => {
 
         // let array = Object.entries(datosUsuarios);
-        console.log("SOY PROPSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ", props.userData);
 
         let body = {
             id_owner: props.userData.user._id,
@@ -80,12 +79,10 @@ const Home = (props) => {
             headLine: datosUsuarios.headLine
         }
 
-        console.log("esto es body", body);
 
         try {
 
             let response = await axios.post('http://localhost:5000/threads', body);
-            console.log(response.data, "este es el hilo NUEVO");
 
             window.location.reload();
 
@@ -96,25 +93,13 @@ const Home = (props) => {
 
 
     if (props.userData.token !== null && threads.length !== 0) {
-        console.log("estamos en el if juaaaaaaaaaaan")
 
         return (
 
             <div className='designHome'>
 
-              <Input variant="default" placeholder="find a user" /> 
-              <Button
-                    type="submit"
-                    // onClick={() => escogeUsuario()}
-                    style={{ margin: '15px' }}
-                    color="dark"
-                    gradient={{ from: 'indigo', to: 'cyan' }}>Submit
-                </Button>
-
-
 
                 <Title color="gray" order={1}>Topics:</Title>
-                {console.log(threads, "esto es threads")}
 
                 {
                     threads.map(hilo => {
