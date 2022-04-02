@@ -11,7 +11,6 @@ const ProfileUser = (props) => {
     console.log(props )
     
     const userData = props.userData.userSearch[0];
-    console.log(userData, "SOOOOOOOOOOOOOOOOOOOOOOOOOOY User DATA")
     return (
         <div className="userShow">
 

@@ -50,11 +50,12 @@ const Header = (props) => {
 
                 console.log(resultados.data.length, "SOY RESULTADOAAAAAAAAAAA")
                 if (resultados.data.length !== 0 ){
+
                     props.dispatch({type: USER_SEARCH, payload: resultados.data});
     
-                    setTimeout(()=>{
-                        navigate("/users");
-                    },500);
+                    
+                    navigate("/users");
+                    window.location.reload();
 
                     console.log("detectamos resultado ok")
                 } else {

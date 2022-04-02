@@ -24,10 +24,12 @@ const Users = (props) => {
 
     //HOOKS 
     const [userData, setUserData] = useState([{}]);
+    const [userFollow, setUserFollow] = useState(false)
 
     useEffect(() => {
         let userId = UserSearched._id
         userPosts(userId)
+        checkIfFollow()
     }, [])
 
     useEffect(() => {
@@ -53,6 +55,22 @@ const Users = (props) => {
 
         } catch (error) {
             console.log(error)
+        }
+
+    }
+
+    const checkIfFollow = () => {
+
+        let userFollowed = props.userData.user.followed
+        console.log(userFollowed[2].id_followed, "Soy userFollowed")
+        console.log(UserSearched._id, "Soy UserSearched_id")
+        let userIdFind = userFollowed.find(user => user.id_followed === UserSearched._id);
+        console.log(userIdFind, "Soy user Id Find")
+
+        if (userIdFind){
+            setUserFollow(true)
+        }else {
+            setUserFollow(false)
         }
 
     }
@@ -94,7 +112,6 @@ const Users = (props) => {
         <div className="designProfile">
             <HeaderProfile />
             <h2>{UserSearched.firstName} {UserSearched.lastName}</h2>
-            {console.log(UserSearched.firstName, "veñjbeq{b{eqjvvvvvvvvvvvvvvvvvvvvvvvvv")}
 
             <div className="bodyProfile">
                 <div className="halfBodyProfileL">
@@ -104,7 +121,7 @@ const Users = (props) => {
                         // onClick={() => handler()}
                         style={{ marginTop: '5em' }}
                         variant="gradient"
-                        gradient={{ from: 'indigo', to: 'cyan' }}>Add User</Button>
+                        gradient={{ from: 'indigo', to: 'cyan' }}>{setUserFollow && "Follow" || "Unfollow"}</Button>
                 </div>
 
                     <div className="halfBodyProfileR userShow">
