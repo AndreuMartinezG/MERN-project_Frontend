@@ -24,7 +24,8 @@ const Users = (props) => {
 
     //HOOKS 
     const [userData, setUserData] = useState([{}]);
-    const [userFollow, setUserFollow] = useState(false)
+    const [userFollow, setUserFollow] = useState(true)
+    const [userUnfollow, setUserUnfollow] = useState(false)
 
     useEffect(() => {
         let userId = UserSearched._id
@@ -69,8 +70,13 @@ const Users = (props) => {
 
         if (userIdFind){
             setUserFollow(true)
+            setUserUnfollow(false)
+            console.log(userFollow, "entro en el if = true")
+            
         }else {
             setUserFollow(false)
+            setUserUnfollow(true)
+            console.log(userFollow, "entro en el else = false")
         }
 
     }
@@ -121,7 +127,7 @@ const Users = (props) => {
                         // onClick={() => handler()}
                         style={{ marginTop: '5em' }}
                         variant="gradient"
-                        gradient={{ from: 'indigo', to: 'cyan' }}>{setUserFollow && "Follow" || "Unfollow"}</Button>
+                        gradient={{ from: 'indigo', to: 'cyan' }}>{userFollow && "Unfollow"}{userUnfollow && "Follow"}</Button>
                 </div>
 
                     <div className="halfBodyProfileR userShow">
