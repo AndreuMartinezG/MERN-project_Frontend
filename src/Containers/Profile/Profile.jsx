@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Button, Text, Textarea, Title } from "@mantine/core";
-import { TextInput, Checkbox, Group, Box } from '@mantine/core';
+import { Button, Text, Title } from "@mantine/core";
+import { TextInput, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { MODIFY_CREDENTIALS } from '../../Redux/types';
+import { useNotifications, updateNotification } from '@mantine/notifications';
+import { CheckIcon } from '@modulz/radix-icons';
 
 import './profile.css'
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
@@ -14,6 +16,8 @@ import ProfileData from '../../Components/ProfileData/ProfileData';
 const Profile = (props) => {
 
     let navigate = useNavigate();
+
+    const notification = useNotifications();
 
 
     //HOOKS 
@@ -45,11 +49,8 @@ const Profile = (props) => {
         try {
             console.log(body)
             let res = await axios.post(`http://localhost:5000/threads/post/${userId}`, body);
-            console.log(res)
-            console.log(res.data.length)
             let reverse = res.data.reverse()
             setUserData(reverse)
-            console.log(userData)
 
         } catch (error) {
             console.log(error)
@@ -98,21 +99,56 @@ const Profile = (props) => {
             email: props.userData.user.email,
             _id: props.userData.user._id
         }
-        console.log(body, "body")
         // let config = {
         //     headers: { Authorization: `Bearer ${props.credentials.token}` }
         // };
 
+        let payloadData = {
+            birthday: props.userData.user.birthday,
+            firstName: dataToSubmit.firstName,
+            lastName: dataToSubmit.lastName,
+            email: props.userData.user.email,
+            _id: props.userData.user._id,
+            isAdmin: props.userData.user.isAdmin,
+            userName: dataToSubmit.userName,
+            followers: props.userData.user.followers,
+            followed: props.userData.user.followed,
+        }
         try {
             //Hacemos el update en la base de datos
             let res = await axios.put(`http://localhost:5000/users`, body);
-            console.log(res)
             if (res) {
                 //Guardamos en redux
-                props.dispatch({ type: MODIFY_CREDENTIALS, payload: dataToSubmit });
+
+                props.dispatch({ type: MODIFY_CREDENTIALS, payload: payloadData });
+
+                notification.showNotification({
+                    id: 'load-data',
+                    loading: true,
+                    title: 'Saving data',
+                    message: 'Data will updated in a few seconds',
+                    autoClose: false,
+                    disallowClose: true,
+                  });
+        
+                  setTimeout(() => {
+                    updateNotification({
+                      id: 'load-data',
+                      color: 'green',
+                      title: 'Data was Updated',
+                      message: 'You data was updated correctly',
+                      icon: <CheckIcon />,
+                      autoClose: 2000,
+                    });
+                  }, 2000);
             }
         } catch (error) {
             console.log(error)
+            notification.showNotification({
+                message: 'an error has ocurred',
+                color: "red",
+                autoClose: 2000,
+            })
         }
 
     }
@@ -151,7 +187,7 @@ const Profile = (props) => {
 
             },
         });
-        
+
         return (
             <Box sx={{ maxWidth: 300 }} mx="auto">
                 <form onSubmit={form.onSubmit((values) => updateUser(values))}>
@@ -175,7 +211,7 @@ const Profile = (props) => {
                     />
 
                     <Group position="center" mt="md">
-                        <Button type="submit">Save</Button>
+                        <Button type="submit" >Save</Button>
                     </Group>
                 </form>
             </Box>
