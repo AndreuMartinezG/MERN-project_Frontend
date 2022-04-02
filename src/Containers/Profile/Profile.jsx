@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Button, Text, Textarea, Title } from "@mantine/core";
 import { TextInput, Checkbox, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { MODIFY_CREDENTIALS } from '../../Redux/types';
 
 import './profile.css'
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
@@ -86,6 +87,37 @@ const Profile = (props) => {
         )
     }
 
+
+    // LLamada al back end para modificar el perfil
+
+    const updateUser = async (dataToSubmit) => {
+
+        let body = {
+            firstName: dataToSubmit.firstName,
+            lastName: dataToSubmit.lastName,
+            email: props.userData.user.email,
+            _id: props.userData.user._id
+        }
+        console.log(body, "body")
+        // let config = {
+        //     headers: { Authorization: `Bearer ${props.credentials.token}` }
+        // };
+
+        try {
+            //Hacemos el update en la base de datos
+            let res = await axios.put(`http://localhost:5000/users`, body);
+            console.log(res)
+            if (res) {
+                //Guardamos en redux
+                props.dispatch({ type: MODIFY_CREDENTIALS, payload: dataToSubmit });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+
     //Cambio de vistas de Modificar perfil o ver post
 
     const handler = () => {
@@ -102,10 +134,9 @@ const Profile = (props) => {
     //Apartado para la modificacion del perfil
 
     const UpdateUserForm = (props) => {
-        console.log("SOY PROPS", props)
+
         const form = useForm({
             initialValues: {
-                email: `${props.data.email}`,
                 firstName: `${props.data.firstName}`,
                 lastName: `${props.data.lastName}`,
                 userName: `${props.data.userName}`,
@@ -120,10 +151,10 @@ const Profile = (props) => {
 
             },
         });
-        console.log("ESTAMOS EN MODIFICAAAAAR")
+        
         return (
             <Box sx={{ maxWidth: 300 }} mx="auto">
-                <form onSubmit={form.onSubmit((values) => console.log(values))}>
+                <form onSubmit={form.onSubmit((values) => updateUser(values))}>
                     <TextInput
                         required
                         label="First Name"
