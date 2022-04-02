@@ -105,7 +105,7 @@ const Home = (props) => {
                 <Input variant="default" placeholder="Search users" />
                 <Button
                     type="submit"
-                    // onClick={() => crearHilo()}
+                    onClick={() => escogeUsuario()}
                     style={{ margin: '15px' }}
                     color="dark"
                     gradient={{ from: 'indigo', to: 'cyan' }}>search
