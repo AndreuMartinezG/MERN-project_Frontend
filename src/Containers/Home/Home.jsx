@@ -102,14 +102,6 @@ const Home = (props) => {
 
             <div className='designHome'>
 
-                <Input variant="default" placeholder="Search users" />
-                <Button
-                    type="submit"
-                    onClick={() => escogeUsuario()}
-                    style={{ margin: '15px' }}
-                    color="dark"
-                    gradient={{ from: 'indigo', to: 'cyan' }}>search
-                </Button>
 
                 <Title color="gray" order={1}>Topics:</Title>
                 {console.log(threads, "esto es threads")}
