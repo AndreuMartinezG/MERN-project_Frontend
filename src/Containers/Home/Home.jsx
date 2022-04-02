@@ -105,7 +105,7 @@ const Home = (props) => {
               <Input variant="default" placeholder="find a user" /> 
               <Button
                     type="submit"
-                    onClick={() => escogeUsuario()}
+                    // onClick={() => escogeUsuario()}
                     style={{ margin: '15px' }}
                     color="dark"
                     gradient={{ from: 'indigo', to: 'cyan' }}>Submit
