@@ -30,7 +30,7 @@ const ProfileData = (props) => {
                 </div>
                 <span className="userShowTitle">Contact Details</span>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Nick Name : {userData.userName}</span>
+                    <span className="userShowInfoTitle">Nickname : {userData.userName}</span>
                 </div>
                 <div className="userShowInfo">
                     <span className="userShowInfoTitle">Email : {userData.email}</span>

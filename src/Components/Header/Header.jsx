@@ -5,6 +5,8 @@ import { LOGOUT } from "../../Redux/types";
 import { USER_SEARCH } from '../../Redux/types.js';
 import axios from "axios";
 import './Header.css'
+import { useNotifications, updateNotification } from '@mantine/notifications';
+import { CheckIcon } from '@modulz/radix-icons';
 
 import {Input, Button} from '@mantine/core';
 
@@ -12,7 +14,8 @@ import {Input, Button} from '@mantine/core';
 const Header = (props) => {
 
     let navigate = useNavigate();
-
+    
+    const notification = useNotifications();
 
     const [formData, setformData] = useState({ postContent: "" });
 
@@ -40,22 +43,37 @@ const Header = (props) => {
     //Buscamos usuarios por nombre
     const busquedaPorusuario = async (e) => {
         e.preventDefault();
-        // 
-        console.log(formData, "sssssssssssssssssssssssssssssssssssssssssss")
         let name = formData.postContent
+        name.toString();
             try {
                 let resultados = await axios.post(`http://localhost:5000/users/results/${name}`);
 
+                console.log(resultados.data.length, "SOY RESULTADOAAAAAAAAAAA")
+                if (resultados.data.length !== 0 ){
+                    props.dispatch({type: USER_SEARCH, payload: resultados.data});
     
-                props.dispatch({type: USER_SEARCH, payload: resultados.data});
-    
-                setTimeout(()=>{
-                    navigate("/users");
-                },500);
-    
+                    setTimeout(()=>{
+                        navigate("/users");
+                    },500);
+
+                    console.log("detectamos resultado ok")
+                } else {
+                    notification.showNotification({
+                        message: 'An error has ocurred, try again.',
+                        color: "red",
+                        autoclose: 2000,
+                    })
+                }
+                
+                
     
             } catch (error) {
                 console.log(error);
+                notification.showNotification({
+                    message: 'an error has ocurred',
+                    color: "red",
+                    autoClose: 2000,
+                })
             }
     }
 

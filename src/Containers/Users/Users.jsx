@@ -16,11 +16,12 @@ import './Users.css'
 
 const Users = (props) => {
 
+    console.log(props, "SOY PROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPSOSP")
     let navigate = useNavigate();
 
     const notification = useNotifications();
 
-    const UserSearched = props.userData.userSearch[0]
+    const UserSearched = props.userData.userSearch
 
     //HOOKS 
     const [userData, setUserData] = useState([{}]);
@@ -94,6 +95,7 @@ const Users = (props) => {
         <div className="designProfile">
             <HeaderProfile />
             <h2>{UserSearched.firstName} {UserSearched.lastName}</h2>
+            {console.log(UserSearched, "veñjbeq{b{eqjvvvvvvvvvvvvvvvvvvvvvvvvv")}
 
             <div className="bodyProfile">
                 <div className="halfBodyProfileL">
