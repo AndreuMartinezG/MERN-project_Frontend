@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { NotificationsProvider } from '@mantine/notifications';
 import { Provider } from 'react-redux';
 import store from './Redux/store';
 
@@ -11,9 +11,11 @@ import store from './Redux/store';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App />
+      <NotificationsProvider>
+        <App />
+      </NotificationsProvider>
     </Provider>
-    
+
   </React.StrictMode>,
   document.getElementById('root')
 );
