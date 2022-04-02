@@ -10,6 +10,7 @@ import Register from './Containers/Register/Register';
 import Profile from './Containers/Profile/Profile';
 import Login from './Containers/Login/Login';
 import ThreadDetail from './Containers/ThreadDetail/ThreadDetail';
+import UserSearch from './Containers/UserSearch/UserSearch';
 
 
 function App() {
@@ -25,8 +26,7 @@ function App() {
           <Route path={'/profile'} element={<Profile />} />
           <Route path={'/register'} element={<Register />} />
           <Route path={'/login'} element={<Login />} />
-          
-          
+          <Route path={'/userSearch'} element={<UserSearch />} />
           <Route path={'/threadDetail'} element={<ThreadDetail />} />
         </Routes>
 
