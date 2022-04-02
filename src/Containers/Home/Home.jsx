@@ -103,7 +103,6 @@ const Home = (props) => {
 
             <div className='designHome'>
 
-                <Input  />
 
                 <Title color="gray" order={1}>Topics:</Title>
                 {console.log(threads, "esto es threads")}
