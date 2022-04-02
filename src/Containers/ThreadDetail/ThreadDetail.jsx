@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux'
 
 import { Button, Divider, Text, Textarea, Title } from "@mantine/core";
-
+import { useNotifications, updateNotification } from '@mantine/notifications';
+import { CheckIcon } from '@modulz/radix-icons';
 import './ThreadDetail.css'
 import axios from 'axios';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
@@ -36,10 +37,32 @@ const __ThreadPost = (props) => {
         }
     }
 
+    const notification = useNotifications();
+
     const deletePost = async () => {
         const data = { postId, threadId };
 
         await axios.delete('http://localhost:5000/threads/post', { data });
+
+        notification.showNotification({
+            id: 'load-data',
+            loading: true,
+            title: 'Deleting Post',
+            message: 'The post is being deleted',
+            autoClose: false,
+            disallowClose: true,
+        });
+
+        setTimeout(() => {
+            updateNotification({
+                id: 'load-data',
+                color: 'red',
+                title: 'Post Deleted',
+                message: 'Your post was Deleted correctly',
+                icon: <CheckIcon />,
+                autoClose: 2000,
+            });
+        }, 500)
 
         updateInfo();
     }
@@ -78,8 +101,8 @@ const __ThreadPost = (props) => {
                     || <div>
                         <Text>{post.text_post}</Text>
                         <Text weight={700}>Created: {moment(post.created_post).format('LL')}</Text>
-                        
-                        
+
+
                     </div>
                 }
 
@@ -91,8 +114,8 @@ const __ThreadPost = (props) => {
 
                         {canUpdateOrDelete &&
                             <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px' }}>
-                                <Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Dejar de editar' : 'Editar'}</Button>
-                                <Button onClick={() => deletePost()} variant='outline' color="red">Eliminar</Button>
+                                <Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Stop editing' : 'Edit'}</Button>
+                                <Button onClick={() => deletePost()} variant='outline' color="red">Delete Post</Button>
                             </div>
                         }
                     </div>
@@ -117,8 +140,31 @@ const __UpdateThreadPostForm = (props) => {
         setformData({ ...formData, [e.target.name]: e.target.value });
     }
 
+    const notification = useNotifications();
+
     const updateInfo = async () => {
+
         try {
+
+            notification.showNotification({
+                id: 'load-data',
+                loading: true,
+                title: 'Saving Edit',
+                message: 'Edit will updated in a few seconds',
+                autoClose: false,
+                disallowClose: true,
+            });
+
+            setTimeout(() => {
+                updateNotification({
+                    id: 'load-data',
+                    color: 'green',
+                    title: 'Post Edited',
+                    message: 'Your post was edited correctly',
+                    icon: <CheckIcon />,
+                    autoClose: 2000,
+                });
+            }, 1000)
             const response = await axios.get('http://localhost:5000/threads');
 
             props.dispatch({ type: SET_THREADS, payload: response.data });
@@ -177,6 +223,8 @@ const __NewThreadPostForm = (props) => {
         setformData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const notification = useNotifications();
+
     const updateInfo = async () => {
         try {
             const response = await axios.get('http://localhost:5000/threads');
@@ -206,7 +254,20 @@ const __NewThreadPostForm = (props) => {
         }
 
         axios.post('http://localhost:5000/threads/post', data)
-            .then(() => { updateInfo() });
+            .then(() => { updateInfo() })
+            .then(() => {
+
+
+                notification.showNotification({
+                    id: 'load-data',
+                    color: 'green',
+                    title: 'Creted Post',
+                    message: 'Your post was successfully created',
+                    icon: <CheckIcon />,
+                    autoClose: 2000,
+                })
+
+            });
     }
 
     return <form
@@ -258,7 +319,7 @@ const ThreadDetail = (props) => {
 
             <Text>Owner: {thread.userName_owner}</Text>
             <Text>{moment(thread.created).format('L')}</Text>
-            
+
 
             <Title order={2}>Posts ({thread.post.length})</Title>
 
