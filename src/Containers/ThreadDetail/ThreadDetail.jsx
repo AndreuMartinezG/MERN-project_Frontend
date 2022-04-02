@@ -256,8 +256,6 @@ const __NewThreadPostForm = (props) => {
         axios.post('http://localhost:5000/threads/post', data)
             .then(() => { updateInfo() })
             .then(() => {
-
-
                 notification.showNotification({
                     id: 'load-data',
                     color: 'green',
@@ -266,7 +264,6 @@ const __NewThreadPostForm = (props) => {
                     icon: <CheckIcon />,
                     autoClose: 2000,
                 })
-
             });
     }
 
@@ -302,37 +299,68 @@ const NewThreadPostForm = connect((state) => ({
 }))(__NewThreadPostForm);
 
 
-
 const ThreadDetail = (props) => {
     const thread = props.thread;
+    console.log(props.thread.post.length, 'props');
 
-    return (
-        // Mostramos información del hilo
+    if (thread.post.length >= 4) {
 
-        <div style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-        }}>
-            {/** Título, Creador y fecha del hilo */}
-            <Title style={{ textTransform: 'uppercase' }}>{thread.headLine}</Title>
+        return (
+            // Mostramos información del hilo
 
-            <Text>Owner: {thread.userName_owner}</Text>
-            <Text>{moment(thread.created).format('L')}</Text>
+            <div style={{
+                width: '100%',
+                height: 'min-content',
+                display: 'flex',
+                flexDirection: 'column',
+            }}>
+                {/** Título, Creador y fecha del hilo */}
+                <Title style={{ textTransform: 'uppercase' }}>{thread.headLine}</Title>
+
+                <Text>Owner: {thread.userName_owner}</Text>
+                <Text>{moment(thread.created).format('L')}</Text>
 
 
-            <Title order={2}>Posts ({thread.post.length})</Title>
+                <Title order={2}>Posts ({thread.post.length})</Title>
 
-            {/** Mostramos la lista de post asociados al hilo */}
-            {
-                thread.post.map((post, index) => <ThreadPost key={index} post={post} />)
-            }
+                {/** Mostramos la lista de post asociados al hilo */}
+                {
+                    thread.post.map((post, index) => <ThreadPost key={index} post={post} />)
+                }
 
-            {/** Formulario para crear un nuevo post */}
-            {props.loggedUser && <NewThreadPostForm threadId={thread._id} />}
+                {/** Formulario para crear un nuevo post */}
+                {props.loggedUser && <NewThreadPostForm threadId={thread._id} />}
 
-        </div>
-    )
+            </div>
+        )
+    } else {
+
+        return (
+            <div style={{
+                width: '100%',
+                height: '87.1vh',
+                display: 'flex',
+                flexDirection: 'column',
+            }}>
+                {/** Título, Creador y fecha del hilo */}
+                <Title style={{ textTransform: 'uppercase' }}>{thread.headLine}</Title>
+
+                <Text>Owner: {thread.userName_owner}</Text>
+                <Text>Created: {moment(thread.created).format('L')}</Text>
+
+                <Title order={2}>Posts ({thread.post.length})</Title>
+
+                {/** Mostramos la lista de post asociados al hilo */}
+                {
+                    thread.post.map((post, index) => <ThreadPost key={index} post={post} />)
+                }
+
+                {/** Formulario para crear un nuevo post */}
+                {props.loggedUser && <NewThreadPostForm threadId={thread._id} />}
+
+            </div>
+        )
+    }
 }
 
 export default connect((state) => ({
