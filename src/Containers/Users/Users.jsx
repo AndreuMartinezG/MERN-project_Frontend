@@ -49,7 +49,7 @@ function Users (props) {
     
                 //Guardo en redux los resultados de las películas
     
-                props.dispatch({type: MOVIES_TITLE, payload: resultados.data});
+                // props.dispatch({type: MOVIES_TITLE, payload: resultados.data});
     
                 setTimeout(()=>{
                     navigate("/searchresults");
