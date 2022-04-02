@@ -6,6 +6,7 @@ import { Button, Divider, Text, Textarea, Title } from "@mantine/core";
 import './ThreadDetail.css'
 import axios from 'axios';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
+import moment from 'moment';
 
 
 /**
@@ -76,7 +77,9 @@ const __ThreadPost = (props) => {
                     />
                     || <div>
                         <Text>{post.text_post}</Text>
-                        <Text>{post.created_post}</Text>
+                        <Text weight={700}>Created: {moment(post.created_post).format('LL')}</Text>
+                        
+                        
                     </div>
                 }
 
@@ -254,7 +257,8 @@ const ThreadDetail = (props) => {
             <Title style={{ textTransform: 'uppercase' }}>{thread.headLine}</Title>
 
             <Text>Owner: {thread.userName_owner}</Text>
-            <Text>{thread.created}</Text>
+            <Text>{moment(thread.created).format('L')}</Text>
+            
 
             <Title order={2}>Posts ({thread.post.length})</Title>
 
