@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Button, Text, Title } from "@mantine/core";
 import { TextInput, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { MODIFY_CREDENTIALS } from '../../Redux/types';
+import { MODIFY_CREDENTIALS, USER_SEARCH } from '../../Redux/types';
 import { useNotifications, updateNotification } from '@mantine/notifications';
 import { CheckIcon } from '@modulz/radix-icons';
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
@@ -25,7 +25,7 @@ const Users = (props) => {
     //HOOKS 
     const [userData, setUserData] = useState([{}]);
     const [userFollow, setUserFollow] = useState(true)
-    const [userUnfollow, setUserUnfollow] = useState(false)
+    const [userUnfollow, setUserUnfollow] = useState()
 
     useEffect(() => {
         let userId = UserSearched._id
@@ -38,6 +38,13 @@ const Users = (props) => {
             navigate("/");
         }
     })
+    useEffect(() => {
+        
+    },[userFollow])
+
+    useEffect(() => {
+        
+    },[userUnfollow])
 
 
     /* Traemos todos los posts de un usuario */
@@ -60,30 +67,38 @@ const Users = (props) => {
 
     }
 
-    const checkIfFollow = () => {
+
+    //Comprobamos si ya seguimos a este usuario
+    const checkIfFollow = async () => {
 
         let userFollowed = props.userData.user.followed
         console.log(userFollowed[2].id_followed, "Soy userFollowed")
         console.log(UserSearched._id, "Soy UserSearched_id")
+
         let userIdFind = userFollowed.find(user => user.id_followed === UserSearched._id);
+
         console.log(userIdFind, "Soy user Id Find")
 
         if (userIdFind){
-            setUserFollow(true)
-            setUserUnfollow(false)
-            console.log(userFollow, "entro en el if = true")
-            
-        }else {
             setUserFollow(false)
             setUserUnfollow(true)
-            console.log(userFollow, "entro en el else = false")
-        }
+            console.log(userFollow, "entro en el if = true = ya sigues a este usuario")
 
+
+            
+        }else {
+            setUserFollow(true)
+            setUserUnfollow(false)
+            console.log(userFollow, "entro en el else = true = sigues a este usuario")
+
+
+        }
     }
 
     /**
      * Componente que muestra un post del hilo
      */
+
     const ThreadPost = (props) => {
         const post = props.post;
 
@@ -111,6 +126,38 @@ const Users = (props) => {
         )
     }
 
+    //Funcion para seguir a un usuario
+
+    const follow = async () => {
+
+        let body = {
+            _id: props.userData.user._id,
+            id_followed: UserSearched._id,
+            name_followed: UserSearched.firstName,
+            userName_followed: UserSearched.userName
+        }
+
+        try {
+
+            let res = await axios.post('http://localhost:5000/users/followed', body)
+            console.log(res, "soy RESSSSSS")
+            // props.dispatch({ type: MODIFY_CREDENTIALS, payload: payloadData });
+            checkIfFollow()
+
+        }catch(error) {
+
+            console.log(error)
+        }
+
+    } 
+
+
+    //Funcion para dejar de seguir a un usuario
+    const unfollow = async () => {
+
+    }
+
+    
 
     //Apartado para la modificacion del perfil
 
@@ -122,12 +169,22 @@ const Users = (props) => {
             <div className="bodyProfile">
                 <div className="halfBodyProfileL">
                     <ProfileUser />
+                    {userUnfollow &&
                     <Button
                         type="submit"
-                        // onClick={() => handler()}
+                        onClick={() => unfollow()}
                         style={{ marginTop: '5em' }}
                         variant="gradient"
-                        gradient={{ from: 'indigo', to: 'cyan' }}>{userFollow && "Unfollow"}{userUnfollow && "Follow"}</Button>
+                        gradient={{ from: 'indigo', to: 'cyan' }}>Unfollow</Button>
+                    }
+                    {userFollow &&
+                    <Button
+                        type="submit"
+                        onClick={() => follow()}
+                        style={{ marginTop: '5em' }}
+                        variant="gradient"
+                        gradient={{ from: 'indigo', to: 'cyan' }}>Follow</Button>
+                    }
                 </div>
 
                     <div className="halfBodyProfileR userShow">
