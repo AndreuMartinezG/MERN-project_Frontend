@@ -47,7 +47,6 @@ const Profile = (props) => {
         // };
 
         try {
-            console.log(body)
             let res = await axios.post(`http://localhost:5000/threads/post/${userId}`, body);
             let reverse = res.data.reverse()
             setUserData(reverse)
@@ -129,18 +128,18 @@ const Profile = (props) => {
                     message: 'Data will updated in a few seconds',
                     autoClose: false,
                     disallowClose: true,
-                  });
-        
-                  setTimeout(() => {
+                });
+
+                setTimeout(() => {
                     updateNotification({
-                      id: 'load-data',
-                      color: 'green',
-                      title: 'Data was Updated',
-                      message: 'You data was updated correctly',
-                      icon: <CheckIcon />,
-                      autoClose: 2000,
+                        id: 'load-data',
+                        color: 'green',
+                        title: 'Data was Updated',
+                        message: 'You data was updated correctly',
+                        icon: <CheckIcon />,
+                        autoClose: 2000,
                     });
-                  }, 2000);
+                }, 2000);
             }
         } catch (error) {
             console.log(error)
@@ -211,7 +210,11 @@ const Profile = (props) => {
                     />
 
                     <Group position="center" mt="md">
-                        <Button type="submit" >Save</Button>
+                        <Button
+                            type="submit"
+                            style={{ marginTop: '3em' }}
+                            variant="gradient"
+                            gradient={{ from: 'indigo', to: 'cyan' }} >Save</Button>
                     </Group>
                 </form>
             </Box>
