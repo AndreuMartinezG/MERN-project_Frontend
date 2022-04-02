@@ -9,7 +9,7 @@ import { MODIFY_CREDENTIALS } from '../../Redux/types';
 import { useNotifications, updateNotification } from '@mantine/notifications';
 import { CheckIcon } from '@modulz/radix-icons';
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
-import ProfileData from '../../Components/ProfileData/ProfileData';
+import ProfileUser from '../../Components/ProfileUser/ProfileUser';
 import './Users.css'
 
 
@@ -98,7 +98,7 @@ const Users = (props) => {
 
             <div className="bodyProfile">
                 <div className="halfBodyProfileL">
-                    <ProfileData />
+                    <ProfileUser />
                     <Button
                         type="submit"
                         // onClick={() => handler()}
