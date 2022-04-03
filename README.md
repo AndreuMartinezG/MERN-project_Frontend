@@ -1,70 +1,90 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Frontend MERN
 
-## Available Scripts
+![image](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
-In the project directory, you can run:
+![image](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 
-### `npm start`
+![image](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![image](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![image](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+En este enlace tienes deployada la App.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+https://master.d3jig09ot1g2k5.amplifyapp.com/
+  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+Solicitan desde GeeksHubs Academy realizar un frontend para el proyecto de API realizado en el repositorio.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+La aplicación consta distintas vistas:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ - Home
+ - Login 
+ - Register
+ - ThreadDetail
+ - Users
+ - Profile
+ 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Home
+La vista de home podemos visualizar los hilos creados por los usuarios. 
+Al hacer click en un hilo te llevará a la vista del detalle de un hilo.
+En la parte inferior tenemos la opción de crear un nuevo hilo si estamos logueados.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+![Home](images/home.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Login 
+En la vista de Login podemos loguearnos  poniendo los campos email y contraseña para poder disfrutar de todas las funcionalidades de la aplicación.
 
-### Code Splitting
+![Login](images/login.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Register
+En la vista de Register se solicitan una serie de datos personales mediante un formulario para poder acceder a la aplicación. 
 
-### Analyzing the Bundle Size
+![Register](images/register.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## ThreadDetail
+En la parte superior de esta vista se muestra los detalles de un hilo como el título, el creador, la fecha de creación...
+Luego se muestran todos los post que contiene el hilo.
+Un post contiene un texto, el nombre y avatar del usuario que lo ha realizado y la fecha de creación. Un usuario puede dar like a un post de otro usuario. Si el post es del usuario logueado se mostraran una serie de botones para editar o eliminar su post.
+Un usuario que está logueado puede crear un nuevo post en el hilo mediante un formulario.
 
-### Making a Progressive Web App
+![ThreadDetail](images/thread-detail.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Users
+En esta vista se muestra el perfil de los distintos usuarios registrados en la aplicación. 
+Además de mostrar los datos del usuario y los post más recientes realizados por el usuario, tienes la opción de seguir al usuario mediante un botón de follow/unfollow.
 
-### Advanced Configuration
+![Users](images/users.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Profile 
+En esta vista se muestra el perfil del usuario logueado.
+Además de mostrar los datos del usuario y los post más recientes realizados por el usuario, tienes la opción de modificar el perfil.
 
-### Deployment
+![Profile](images/profile.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Y esta es una captura de cuando seleccionas modificar perfil.
 
-### `npm run build` fails to minify
+![Profile-modify](images/profile-modify.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Funcionaliad adicional 
+
+En el componente de Header tiene distintas funcionalidades:
+
+![Header](images/header.png)
+
+- Buscador de Usuarios (aparece si estás logueado)
+- Botón de Login (aparece si no estás logueado)
+- Botón de Logout (aparece si estás logueado)
+- Botón de Perfil (aparece si estás logueado)
+
