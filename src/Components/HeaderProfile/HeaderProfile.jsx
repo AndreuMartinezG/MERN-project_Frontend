@@ -14,7 +14,7 @@ const HeaderProfile = (props) => {
             />
             <div className="headerProfileImg">
                 <img
-                    src="https://picsum.photos/id/1005/1000"
+                    src="https://i.pinimg.com/564x/00/40/5f/00405f60c89d832520ef8a8f7529ab6b.jpg"
                     className="headerProfileBodyImg"
                     alt="cover"
                 />
