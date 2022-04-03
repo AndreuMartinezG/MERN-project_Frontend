@@ -1,5 +1,10 @@
 .designLogin {
-    height: 51em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 37em;
     width: 100vw;
-    background-color: lightgray
+    background-image: url(../../img/fondito2.jpg);
+    background-size: cover;
 }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { LOGIN } from '../../Redux/types';
 
 import './Login.css'
+import { Button, Input, Title } from '@mantine/core';
 
 const Login = (props) => {
 
@@ -65,18 +66,20 @@ const Login = (props) => {
 
 
     return (
-        <div className='designLogin'>Login
+        <div className='designLogin'> <Title order={1}>Login</Title>
 
 
             <div className="designFormulario">
-                <input type="email" name="email" id="email" title="email" placeholder="Correo Electrónico" autoComplete="off" onChange={(e) => { introduceData(e) }} />
-                <input type="password" name="password" id="password" title="password" placeholder="Contraseña" autoComplete="off" onChange={(e) => { introduceData(e); }} />
+                <Input style={{ display: 'flex', margin: '.5em', width: '30em' }} name="email" type="email" id="email" title="email" variant="default" placeholder="Email" autoComplete="off" onChange={(e) => { introduceData(e) }} />
+                <Input style={{ display: 'flex', margin: '.5em', width: '30em' }} name="password" type="password" id="password" title="password" variant="default" autoComplete="off" placeholder="Password" onChange={(e) => { introduceData(e) }} />
                 {msgError}
             </div>
-            <div className="loginButton espacio" onClick={() => login()}>LOG ME!</div>
+            <div className="loginButton espacio" > <Button onClick={() => login()}>Login </Button></div>
         </div>
     )
 }
 export default connect((state) => ({
     isLoggedIn: state.credentials.token !== null
 }))(Login);
+
+
