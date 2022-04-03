@@ -11,19 +11,21 @@
 }
 
 .footerLeft {
-    width: 33em;
+    width: 23em;
+
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
 }
 .footerCenter {
-    width: 33em;
+    width: 43em;
 
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
 }
 
 .footerRight {
