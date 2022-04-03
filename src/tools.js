@@ -21,21 +21,20 @@ export const checkError = (type, value) => {
                 return "ok";
             };
 
-        // case 'password':
-        //         //^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[]:;<>,.?/~_+-=|\]).{8,32}$
-        //     if (! /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/.test(value)) {
-        //         return "the password must contain At least 6 characters, one digit, one upper case and one special character";
-        //     } else {
-        //         return "ok";
-        //     };
+        case 'password':
+            if (! /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/.test(value)) {
+                return "the password must contain At least 6 characters, one digit, one upper case and one special character";
+            } else {
+                return "ok";
+            };
 
-        // case 'password2':
-        //         if (! /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/.test(value)) {
+        case 'password2':
+                if (! /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/.test(value)) {
         
-        //         return "the password must contain At least 6 characters and no more than 10, one digit and one lower case character"
-        //     } else {
-        //         return "ok";
-        //     };
+                return "the password must contain At least 6 characters and no more than 10, one digit and one lower case character"
+            } else {
+                return "ok";
+            };
             
         case 'date':
                 
@@ -45,11 +44,7 @@ export const checkError = (type, value) => {
                 return "ok";
             };
 
-            /* if(! /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/.test(fields[key]){
-                return "the date is wrong"
-            }else {
-                return "ok";
-            }*/
+          
 
 
         case 'surname':
@@ -62,7 +57,7 @@ export const checkError = (type, value) => {
 
         case 'userName':
 
-            if (!/[a-z]/gi.test(value)) {
+            if (!/[a-z]/g.test(value)) {
                 return "Introduce a valid username";
             } else {
                 return "ok";
