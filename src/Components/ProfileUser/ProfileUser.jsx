@@ -9,7 +9,7 @@ import './ProfileUser.css'
 const ProfileUser = (props) => {
 
     console.log(props, "soy props de PROFILE USER")
-    
+
     const userData = props.userData.userSearch[0];
     return (
         <div className="userShow">
@@ -20,8 +20,8 @@ const ProfileUser = (props) => {
                     <span className="userShowInfoTitle">Name : {userData.firstName} {userData.lastName}</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Birthday : {moment(userData.birthday).format('L') } 
-                      </span>
+                    <span className="userShowInfoTitle">Birthday : {moment(userData.birthday).format('L')}
+                    </span>
                 </div>
                 <div className="userShowInfo">
                     <span className="userShowInfoTitle">Followed : {userData.followed?.length}</span>

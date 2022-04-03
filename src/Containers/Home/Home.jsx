@@ -99,7 +99,13 @@ const Home = (props) => {
             <div className='designHome'>
 
 
-                <Title color="gray" order={1}>Topics:</Title>
+                <Title
+                    color="gray"
+                    order={1}
+                    style={{
+                        marginTop: "2em",
+                        marginBottom: "1em",
+                    }}>Topics:</Title>
 
                 {
                     threads.map(hilo => {
@@ -130,7 +136,12 @@ const Home = (props) => {
                         )
                     }).reverse()
                 }
-                <Title order={3}>CREATE NEW THREAT:</Title>
+                <Title
+                    order={3}
+                    style={{
+                        marginTop: "2em",
+                        marginBottom: "1em",
+                    }}>CREATE NEW THREAT:</Title>
                 <Textarea style={{
                     margin: '0px auto',
                     padding: '20px 0px',
@@ -140,8 +151,8 @@ const Home = (props) => {
                 <Button
                     type="submit"
                     onClick={() => crearHilo()}
-                    style={{ margin: '15px' }}
-                    color="dark"
+                    style={{ margin: '15px', marginBottom: '3em' }}
+                    variant="gradient"
                     gradient={{ from: 'indigo', to: 'cyan' }}>Submit
                 </Button>
 
@@ -154,7 +165,13 @@ const Home = (props) => {
     } else if (threads.length !== 0) {
         return (
             <div className='designHome'>
-                <Title color="gray" order={1}>Topics:</Title>
+                <Title
+                    color="gray"
+                    order={1}
+                    style={{
+                        marginTop: "2em",
+                        marginBottom: "1em",
+                    }}>Topics:</Title>
                 {console.log(threads, "esto es threads")}
 
                 {
