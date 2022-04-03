@@ -86,14 +86,18 @@ const Header = (props) => {
     return (
         <div className='designHeader'>
 
-            <div className="link" onClick={() => navegar("/")}>Home</div>
+            <div className="headerLeft">
+                <div className="link" onClick={() => navegar("/")}>Home</div>
+            </div>
 
+            <div className="headerCenter">
+                
             {/* Si el usuario no está loguado no mostraremos estos botones */}
             {isLoggedIn &&
                 <form
                     onSubmit={(e) => busquedaPorusuario(e)}
                     style={{
-                        width: '25%',
+                        width: '30em',
                         display: 'flex',
                         flexDirection: 'row'
                     }}>
@@ -111,14 +115,17 @@ const Header = (props) => {
                     </Button>
                 </form>
             }
-            {!isLoggedIn && <div className="link" onClick={() => navegar("/login")}>Login</div>}
-            {!isLoggedIn && <div className="link" onClick={() => navegar("/register")}>Register</div>}
+            </div>
+            <div className="headerRight">
 
-            {/* Si el usuario está loguado mostraremos estos botones*/}
-            {isLoggedIn && <div className="link" onClick={() => navegar("/profile")}>{userName}</div>}
-            {isLoggedIn && <div className="link" onClick={() => logout()}>Logout</div>}
+                {!isLoggedIn && <div className="link" onClick={() => navegar("/login")}>Login</div>}
+                {!isLoggedIn && <div className="link" onClick={() => navegar("/register")}>Register</div>}
 
+                {/* Si el usuario está loguado mostraremos estos botones*/}
+                {isLoggedIn && <div className="link" onClick={() => navegar("/profile")}>{userName}</div>}
+                {isLoggedIn && <div className="link" onClick={() => logout()}>Logout</div>}
 
+            </div>
         </div >
     )
 
