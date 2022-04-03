@@ -36,7 +36,9 @@ const Users = (props) => {
 
     useEffect(() => {
         if (props.userData.token === null) {
+            
             navigate("/");
+            window.location.reload();
         }
     })
     useEffect(() => {
