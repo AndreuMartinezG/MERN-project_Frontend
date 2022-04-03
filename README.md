@@ -1,7 +1,24 @@
 
 # Frontend MERN
 
+![image](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
+![image](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+
+![image](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+
+
+![image](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+
+
+![image](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
+
+
+En este enlace tienes deployada la App.
+
+https://master.d3jig09ot1g2k5.amplifyapp.com/
   
+
 
 Solicitan desde GeeksHubs Academy realizar un frontend para el proyecto de API realizado en el repositorio.
 
@@ -53,6 +70,10 @@ En esta vista se muestra el perfil del usuario logueado.
 Además de mostrar los datos del usuario y los post más recientes realizados por el usuario, tienes la opción de modificar el perfil.
 
 ![Profile](images/profile.png)
+
+Y esta es una captura de cuando seleccionas modificar perfil.
+
+![Profile-modify](images/profile-modify.png)
 
 
 
