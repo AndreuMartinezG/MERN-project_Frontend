@@ -8,13 +8,13 @@ import './Header.css'
 import { useNotifications, updateNotification } from '@mantine/notifications';
 import { CheckIcon } from '@modulz/radix-icons';
 
-import {Input, Button} from '@mantine/core';
+import { Input, Button } from '@mantine/core';
 
 
 const Header = (props) => {
 
     let navigate = useNavigate();
-    
+
     const notification = useNotifications();
 
     const [formData, setformData] = useState({ postContent: "" });
@@ -38,7 +38,7 @@ const Header = (props) => {
     const logout = () => {
         navegar("/");
         props.dispatch({ type: LOGOUT });
-        
+
     }
 
 
@@ -48,37 +48,37 @@ const Header = (props) => {
         let userName = formData.postContent
         console.log(userName, "SOY NAAAAAAAAAAAAAAAAAAME")
         userName.toString();
-            try {
-                let resultados = await axios.post(`http://localhost:5000/users/results/${userName}`);
+        try {
+            let resultados = await axios.post(`http://localhost:5000/users/results/${userName}`);
 
-                console.log(resultados.data.length, "SOY RESULTADOAAAAAAAAAAA")
-                if (resultados.data.length !== 0 ){
+            console.log(resultados.data.length, "SOY RESULTADOAAAAAAAAAAA")
+            if (resultados.data.length !== 0) {
 
-                    props.dispatch({type: USER_SEARCH, payload: resultados.data});
-    
-                    
-                    navigate("/users");
-                    window.location.reload();
+                props.dispatch({ type: USER_SEARCH, payload: resultados.data });
 
-                    console.log("detectamos resultado ok")
-                } else {
-                    notification.showNotification({
-                        message: 'An error has ocurred, try again.',
-                        color: "red",
-                        autoclose: 2000,
-                    })
-                }
-                
-                
-    
-            } catch (error) {
-                console.log(error);
+
+                navigate("/users");
+                window.location.reload();
+
+                console.log("detectamos resultado ok")
+            } else {
                 notification.showNotification({
-                    message: 'an error has ocurred',
+                    message: 'An error has ocurred, try again.',
                     color: "red",
                     autoclose: 2000,
                 })
             }
+
+
+
+        } catch (error) {
+            console.log(error);
+            notification.showNotification({
+                message: 'an error has ocurred',
+                color: "red",
+                autoclose: 2000,
+            })
+        }
     }
 
 
@@ -90,32 +90,33 @@ const Header = (props) => {
 
             {/* Si el usuario no está loguado no mostraremos estos botones */}
             {isLoggedIn &&
-            <form 
-            onSubmit={(e) => busquedaPorusuario(e)}
-            style={{
-                width: '25%',
-                display: 'flex',
-                flexDirection: 'row'
-            }}>
-            <Input 
-                value={formData.postContent}
-                onChange={(e) => modifyData(e)}
-                name="postContent" 
-                placeholder="Search User"/>
-            <Button
-                    type="submit"
-                    style={{ marginLeft: '1em', marginRight: '1em'}}
-                    color="light"
-                    gradient={{ from: 'indigo', to: 'cyan' }}>Submit
-                </Button>
-            </form>
+                <form
+                    onSubmit={(e) => busquedaPorusuario(e)}
+                    style={{
+                        width: '25%',
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}>
+                    <Input
+                        value={formData.postContent}
+                        onChange={(e) => modifyData(e)}
+                        name="postContent"
+                        placeholder="Search User" />
+                    <Button
+                        type="submit"
+                        style={{ marginLeft: '1em', marginRight: '1em' }}
+                        color="light"
+                        variant="gradient"
+                        gradient={{ from: 'indigo', to: 'cyan' }}>Submit
+                    </Button>
+                </form>
             }
             {!isLoggedIn && <div className="link" onClick={() => navegar("/login")}>Login</div>}
             {!isLoggedIn && <div className="link" onClick={() => navegar("/register")}>Register</div>}
 
             {/* Si el usuario está loguado mostraremos estos botones*/}
             {isLoggedIn && <div className="link" onClick={() => navegar("/profile")}>{userName}</div>}
-            {isLoggedIn && <div className="link" onClick={() => logout()}>Logout</div>} 
+            {isLoggedIn && <div className="link" onClick={() => logout()}>Logout</div>}
 
 
         </div >
