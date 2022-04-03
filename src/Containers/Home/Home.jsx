@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
 import debounce from 'lodash.debounce';
 import { Button, Text, Input, Textarea, Title } from '@mantine/core';
+import { useNotifications, updateNotification } from '@mantine/notifications';
+import { CheckIcon } from '@modulz/radix-icons';
 
 
 import './Home.css'
@@ -12,7 +14,7 @@ import './Home.css'
 const Home = (props) => {
 
     let navigate = useNavigate();
-
+    const notification = useNotifications();
     // Threads ya no se usa, se usa el state de redux
     const threads = props.threads;
 
@@ -84,7 +86,15 @@ const Home = (props) => {
 
             let response = await axios.post('http://localhost:5000/threads', body);
 
-            window.location.reload();
+            notification.showNotification({
+                message: 'You created a new thread',
+                color: "green",
+                icon: <CheckIcon />,
+                autoclose: 2000,
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
 
         } catch (error) {
             console.log(error);
@@ -141,7 +151,7 @@ const Home = (props) => {
                     style={{
                         marginTop: "2em",
                         marginBottom: "1em",
-                    }}>CREATE NEW THREAT:</Title>
+                    }}>CREATE NEW THREAD:</Title>
                 <Textarea style={{
                     margin: '0px auto',
                     padding: '20px 0px',
