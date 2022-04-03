@@ -36,7 +36,9 @@ const Header = (props) => {
     }
 
     const logout = () => {
+        navegar("/");
         props.dispatch({ type: LOGOUT });
+        
     }
 
 

@@ -84,13 +84,10 @@ const Users = (props) => {
             setUserUnfollow(true)
             console.log(userFollow, "entro en el if = true = ya sigues a este usuario")
 
-
-            
         }else {
             setUserFollow(true)
             setUserUnfollow(false)
             console.log(userFollow, "entro en el else = true = sigues a este usuario")
-
 
         }
     }
@@ -141,14 +138,16 @@ const Users = (props) => {
 
             let res = await axios.post('http://localhost:5000/users/followed', body)
             console.log(res, "soy RESSSSSS")
-            // props.dispatch({ type: MODIFY_CREDENTIALS, payload: payloadData });
+            props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data });
             checkIfFollow()
+            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.firstName}`)
+            props.dispatch({type: USER_SEARCH, payload: resultados.data})
+            window.location.reload()
 
         }catch(error) {
 
             console.log(error)
         }
-
     } 
 
 

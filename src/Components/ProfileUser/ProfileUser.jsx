@@ -8,7 +8,7 @@ import './ProfileUser.css'
 
 const ProfileUser = (props) => {
 
-    console.log(props )
+    console.log(props, "soy props de PROFILE USER")
     
     const userData = props.userData.userSearch[0];
     return (
