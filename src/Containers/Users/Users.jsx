@@ -140,7 +140,7 @@ const Users = (props) => {
             console.log(res, "soy RESSSSSS")
             props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data });
             checkIfFollow()
-            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.firstName}`)
+            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
             props.dispatch({type: USER_SEARCH, payload: resultados.data})
             window.location.reload()
 

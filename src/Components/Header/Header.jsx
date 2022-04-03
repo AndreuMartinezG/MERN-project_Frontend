@@ -45,10 +45,11 @@ const Header = (props) => {
     //Buscamos usuarios por nombre
     const busquedaPorusuario = async (e) => {
         e.preventDefault();
-        let name = formData.postContent
-        name.toString();
+        let userName = formData.postContent
+        console.log(userName, "SOY NAAAAAAAAAAAAAAAAAAME")
+        userName.toString();
             try {
-                let resultados = await axios.post(`http://localhost:5000/users/results/${name}`);
+                let resultados = await axios.post(`http://localhost:5000/users/results/${userName}`);
 
                 console.log(resultados.data.length, "SOY RESULTADOAAAAAAAAAAA")
                 if (resultados.data.length !== 0 ){
