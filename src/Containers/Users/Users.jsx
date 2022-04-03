@@ -153,7 +153,19 @@ const Users = (props) => {
 
     //Funcion para dejar de seguir a un usuario
     const unfollow = async () => {
+        let body = {
+            userId: props.userData.user._id,
+            unfollowedId: UserSearched._id
+            // name_followed: UserSearched.firstName,
+            // userName_followed: UserSearched.userName
+        }
+        try{
+            let res = await axios.delete('http://localhost:5000/users/followed', body)
+            console.log(res, "soy RESSSSSS de unfollow")
 
+        }catch(error) {
+            console.log(error)
+        }
     }
 
     
