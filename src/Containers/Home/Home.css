@@ -1,0 +1,35 @@
+.designHome {
+    height: auto;
+    width: 100vw;
+    background-image: url(../../img/fondito2.jpg);
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonThreadNew {
+    height: 4em;
+    width: 4em;
+
+    background-color: pink;
+
+    cursor: pointer;
+}
+
+.threads {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 5em;
+    width: 10em;
+
+    background-color: pink;
+
+    border: .1em solid black;
+    margin: .1em;
+}

@@ -1,0 +1,10 @@
+.designLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 51em;
+    width: 100vw;
+    background-image: url(../../img/fondito2.jpg);
+    background-size: cover;
+}

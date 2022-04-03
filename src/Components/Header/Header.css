@@ -1,0 +1,49 @@
+.designHeader {
+    height: 4em;
+    width: 100%;
+
+    background-color: #1A232E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    
+    color: lightgray
+}
+
+.headerLeft {
+    width: 25em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+
+}
+
+.headerCenter {
+    width: 55em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.headerRight {
+    width: 30em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+
+}
+.link {
+
+    margin-right: 3em;
+    box-sizing: content-box;
+    cursor: pointer;
+
+}

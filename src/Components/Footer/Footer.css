@@ -1,0 +1,41 @@
+.designFooter {
+    width: 100vw;
+    height: 3.55em;
+    background-color: #1A232E;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    color: whitesmoke;
+}
+
+.footerLeft {
+    width: 23em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+.footerCenter {
+    width: 43em;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.footerRight {
+
+    width: 33em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    font-size: .7em;
+}
