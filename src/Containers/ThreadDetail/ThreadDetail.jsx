@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect, useSelector } from 'react-redux'
 
 import { Button, Divider, Text, Textarea, Title } from "@mantine/core";
-
+import { useNotifications, updateNotification } from '@mantine/notifications';
+import { CheckIcon } from '@modulz/radix-icons';
 import './ThreadDetail.css'
 import axios from 'axios';
 import { SET_THREADS, THREAD_DETAIL } from '../../Redux/types';
+import moment from 'moment';
 
 
 /**
@@ -35,10 +37,32 @@ const __ThreadPost = (props) => {
         }
     }
 
+    const notification = useNotifications();
+
     const deletePost = async () => {
         const data = { postId, threadId };
 
         await axios.delete('http://localhost:5000/threads/post', { data });
+
+        notification.showNotification({
+            id: 'load-data',
+            loading: true,
+            title: 'Deleting Post',
+            message: 'The post is being deleted',
+            autoClose: false,
+            disallowClose: true,
+        });
+
+        setTimeout(() => {
+            updateNotification({
+                id: 'load-data',
+                color: 'red',
+                title: 'Post Deleted',
+                message: 'Your post was Deleted correctly',
+                icon: <CheckIcon />,
+                autoClose: 2000,
+            });
+        }, 500)
 
         updateInfo();
     }
@@ -76,7 +100,9 @@ const __ThreadPost = (props) => {
                     />
                     || <div>
                         <Text>{post.text_post}</Text>
-                        <Text>{post.created_post}</Text>
+                        <Text weight={700}>Created: {moment(post.created_post).format('LL')}</Text>
+
+
                     </div>
                 }
 
@@ -88,8 +114,8 @@ const __ThreadPost = (props) => {
 
                         {canUpdateOrDelete &&
                             <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px' }}>
-                                <Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Dejar de editar' : 'Editar'}</Button>
-                                <Button onClick={() => deletePost()} variant='outline' color="red">Eliminar</Button>
+                                <Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? 'Stop editing' : 'Edit'}</Button>
+                                <Button onClick={() => deletePost()} variant='outline' color="red">Delete Post</Button>
                             </div>
                         }
                     </div>
@@ -114,8 +140,31 @@ const __UpdateThreadPostForm = (props) => {
         setformData({ ...formData, [e.target.name]: e.target.value });
     }
 
+    const notification = useNotifications();
+
     const updateInfo = async () => {
+
         try {
+
+            notification.showNotification({
+                id: 'load-data',
+                loading: true,
+                title: 'Saving Edit',
+                message: 'Edit will updated in a few seconds',
+                autoClose: false,
+                disallowClose: true,
+            });
+
+            setTimeout(() => {
+                updateNotification({
+                    id: 'load-data',
+                    color: 'green',
+                    title: 'Post Edited',
+                    message: 'Your post was edited correctly',
+                    icon: <CheckIcon />,
+                    autoClose: 2000,
+                });
+            }, 1000)
             const response = await axios.get('http://localhost:5000/threads');
 
             props.dispatch({ type: SET_THREADS, payload: response.data });
@@ -174,6 +223,8 @@ const __NewThreadPostForm = (props) => {
         setformData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const notification = useNotifications();
+
     const updateInfo = async () => {
         try {
             const response = await axios.get('http://localhost:5000/threads');
@@ -203,7 +254,17 @@ const __NewThreadPostForm = (props) => {
         }
 
         axios.post('http://localhost:5000/threads/post', data)
-            .then(() => { updateInfo() });
+            .then(() => { updateInfo() })
+            .then(() => {
+                notification.showNotification({
+                    id: 'load-data',
+                    color: 'green',
+                    title: 'Creted Post',
+                    message: 'Your post was successfully created',
+                    icon: <CheckIcon />,
+                    autoClose: 2000,
+                })
+            });
     }
 
     return <form
@@ -238,36 +299,68 @@ const NewThreadPostForm = connect((state) => ({
 }))(__NewThreadPostForm);
 
 
-
 const ThreadDetail = (props) => {
     const thread = props.thread;
+    console.log(props.thread.post.length, 'props');
 
-    return (
-        // Mostramos información del hilo
+    if (thread.post.length >= 4) {
 
-        <div style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-        }}>
-            {/** Título, Creador y fecha del hilo */}
-            <Title style={{ textTransform: 'uppercase' }}>{thread.headLine}</Title>
+        return (
+            // Mostramos información del hilo
 
-            <Text>Owner: {thread.userName_owner}</Text>
-            <Text>{thread.created}</Text>
+            <div style={{
+                width: '100%',
+                height: 'min-content',
+                display: 'flex',
+                flexDirection: 'column',
+            }}>
+                {/** Título, Creador y fecha del hilo */}
+                <Title style={{ textTransform: 'uppercase' }}>{thread.headLine}</Title>
 
-            <Title order={2}>Posts ({thread.post.length})</Title>
+                <Text>Owner: {thread.userName_owner}</Text>
+                <Text>{moment(thread.created).format('L')}</Text>
 
-            {/** Mostramos la lista de post asociados al hilo */}
-            {
-                thread.post.map((post, index) => <ThreadPost key={index} post={post} />)
-            }
 
-            {/** Formulario para crear un nuevo post */}
-            {props.loggedUser && <NewThreadPostForm threadId={thread._id} />}
+                <Title order={2}>Posts ({thread.post.length})</Title>
 
-        </div>
-    )
+                {/** Mostramos la lista de post asociados al hilo */}
+                {
+                    thread.post.map((post, index) => <ThreadPost key={index} post={post} />)
+                }
+
+                {/** Formulario para crear un nuevo post */}
+                {props.loggedUser && <NewThreadPostForm threadId={thread._id} />}
+
+            </div>
+        )
+    } else {
+
+        return (
+            <div style={{
+                width: '100%',
+                height: '87.1vh',
+                display: 'flex',
+                flexDirection: 'column',
+            }}>
+                {/** Título, Creador y fecha del hilo */}
+                <Title style={{ textTransform: 'uppercase' }}>{thread.headLine}</Title>
+
+                <Text>Owner: {thread.userName_owner}</Text>
+                <Text>Created: {moment(thread.created).format('L')}</Text>
+
+                <Title order={2}>Posts ({thread.post.length})</Title>
+
+                {/** Mostramos la lista de post asociados al hilo */}
+                {
+                    thread.post.map((post, index) => <ThreadPost key={index} post={post} />)
+                }
+
+                {/** Formulario para crear un nuevo post */}
+                {props.loggedUser && <NewThreadPostForm threadId={thread._id} />}
+
+            </div>
+        )
+    }
 }
 
 export default connect((state) => ({

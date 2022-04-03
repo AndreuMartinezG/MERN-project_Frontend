@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
+import moment from 'moment';
 
 import './ProfileData.css'
 
 const ProfileData = (props) => {
 
     console.log(props, "SOOOOOOOOOOOOOOOOOOOOOOOOOOY PROFILE DATA")
-    
+
     const userData = props.userData;
 
     return (
@@ -20,7 +21,10 @@ const ProfileData = (props) => {
                     <span className="userShowInfoTitle">{userData.user.firstName} {userData.user.lastName}</span>
                 </div>
                 <div className="userShowInfo">
-                    <span className="userShowInfoTitle">Birthday : {userData.user.birthday} </span>
+                    <span className="userShowInfoTitle">Birthday : {moment(userData.user.birthday).format('L')} </span>
+                </div>
+                <div className="userShowInfo">
+                    <span className="userShowInfoTitle">Born : {moment(userData.user.birthday, "YYYYMMDD").fromNow()} </span>
                 </div>
                 <div className="userShowInfo">
                     <span className="userShowInfoTitle">Followed : {userData.user.followed?.length} people</span>
