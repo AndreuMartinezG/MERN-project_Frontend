@@ -141,7 +141,15 @@ const Users = (props) => {
             checkIfFollow()
             let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
             props.dispatch({ type: USER_SEARCH, payload: resultados.data })
-            window.location.reload()
+            notification.showNotification({
+                message: 'You are now following this user',
+                color: "green",
+                icon: <CheckIcon />,
+                autoclose: 2000,
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
 
         } catch (error) {
 
@@ -158,14 +166,21 @@ const Users = (props) => {
         }
         console.log(body, "soy body de unfollow")
         try {
-            let res = await axios.delete('http://localhost:5000/users/followed', { data: body})
+            let res = await axios.delete('http://localhost:5000/users/followed', { data: body })
             console.log(res, "soy RESSSSSS de unfollow")
             props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data[0] })
             checkIfFollow()
             let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
             props.dispatch({ type: USER_SEARCH, payload: resultados.data })
-            window.location.reload()
-
+            notification.showNotification({
+                message: 'You stopped following this user',
+                color: "green",
+                icon: <CheckIcon />,
+                autoclose: 2000,
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000)
         } catch (error) {
             console.log(error)
         }
