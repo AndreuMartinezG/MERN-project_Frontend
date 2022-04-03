@@ -91,9 +91,8 @@ const Home = (props) => {
                 icon: <CheckIcon />,
                 autoclose: 2000,
             })
-            setTimeout(() => {
-                window.location.reload()
-            }, 2000)
+            window.location.reload()
+
 
         } catch (error) {
             console.log(error);
