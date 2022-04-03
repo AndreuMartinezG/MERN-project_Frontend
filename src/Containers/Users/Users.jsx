@@ -39,12 +39,12 @@ const Users = (props) => {
         }
     })
     useEffect(() => {
-        
-    },[userFollow])
+
+    }, [userFollow])
 
     useEffect(() => {
-        
-    },[userUnfollow])
+
+    }, [userUnfollow])
 
 
     /* Traemos todos los posts de un usuario */
@@ -72,25 +72,21 @@ const Users = (props) => {
     const checkIfFollow = async () => {
 
         let userFollowed = props.userData.user.followed
-        console.log(userFollowed[2].id_followed, "Soy userFollowed")
-        console.log(UserSearched._id, "Soy UserSearched_id")
-
+        console.log(userFollowed, "SOY USER FOLLOWED")
+        console.log(UserSearched._id, "SOY EL USUARIO SEARCH")
         let userIdFind = userFollowed.find(user => user.id_followed === UserSearched._id);
 
         console.log(userIdFind, "Soy user Id Find")
 
-        if (userIdFind){
+        if (userIdFind) {
             setUserFollow(false)
             setUserUnfollow(true)
             console.log(userFollow, "entro en el if = true = ya sigues a este usuario")
 
-
-            
-        }else {
+        } else {
             setUserFollow(true)
             setUserUnfollow(false)
             console.log(userFollow, "entro en el else = true = sigues a este usuario")
-
 
         }
     }
@@ -141,23 +137,41 @@ const Users = (props) => {
 
             let res = await axios.post('http://localhost:5000/users/followed', body)
             console.log(res, "soy RESSSSSS")
-            // props.dispatch({ type: MODIFY_CREDENTIALS, payload: payloadData });
+            props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data });
             checkIfFollow()
+            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
+            props.dispatch({ type: USER_SEARCH, payload: resultados.data })
+            window.location.reload()
 
-        }catch(error) {
+        } catch (error) {
 
             console.log(error)
         }
-
-    } 
+    }
 
 
     //Funcion para dejar de seguir a un usuario
     const unfollow = async () => {
+        let body = {
+            userId: props.userData.user._id,
+            unfollowedId: UserSearched._id
+        }
+        console.log(body, "soy body de unfollow")
+        try {
+            let res = await axios.delete('http://localhost:5000/users/followed', { data: body})
+            console.log(res, "soy RESSSSSS de unfollow")
+            props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data[0] })
+            checkIfFollow()
+            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
+            props.dispatch({ type: USER_SEARCH, payload: resultados.data })
+            window.location.reload()
 
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    
+
 
     //Apartado para la modificacion del perfil
 
@@ -170,40 +184,40 @@ const Users = (props) => {
                 <div className="halfBodyProfileL">
                     <ProfileUser />
                     {userUnfollow &&
-                    <Button
-                        type="submit"
-                        onClick={() => unfollow()}
-                        style={{ marginTop: '5em' }}
-                        variant="gradient"
-                        gradient={{ from: 'indigo', to: 'cyan' }}>Unfollow</Button>
+                        <Button
+                            type="submit"
+                            onClick={() => unfollow()}
+                            style={{ marginTop: '5em' }}
+                            variant="gradient"
+                            gradient={{ from: 'indigo', to: 'cyan' }}>Unfollow</Button>
                     }
                     {userFollow &&
-                    <Button
-                        type="submit"
-                        onClick={() => follow()}
-                        style={{ marginTop: '5em' }}
-                        variant="gradient"
-                        gradient={{ from: 'indigo', to: 'cyan' }}>Follow</Button>
+                        <Button
+                            type="submit"
+                            onClick={() => follow()}
+                            style={{ marginTop: '5em' }}
+                            variant="gradient"
+                            gradient={{ from: 'indigo', to: 'cyan' }}>Follow</Button>
                     }
                 </div>
 
-                    <div className="halfBodyProfileR userShow">
+                <div className="halfBodyProfileR userShow">
 
-                        {/** Título, Creador y fecha del hilo */}
+                    {/** Título, Creador y fecha del hilo */}
 
-                        <Title order={4} style={{
-                            textTransform: 'uppercase'
-                        }}>Last Posts</Title>
-                        <hr style={{
-                            width: '60%',
-                            height: '1px',
-                            marginBottom: '2em'
-                        }} />
-                        {/** Mostramos la lista de post asociados al hilo */}
-                        {
-                            userData.map((post, index) => <ThreadPost key={index} post={post} />).slice(0, 5)
-                        }
-                    </div>
+                    <Title order={4} style={{
+                        textTransform: 'uppercase'
+                    }}>Last Posts</Title>
+                    <hr style={{
+                        width: '60%',
+                        height: '1px',
+                        marginBottom: '2em'
+                    }} />
+                    {/** Mostramos la lista de post asociados al hilo */}
+                    {
+                        userData.map((post, index) => <ThreadPost key={index} post={post} />).slice(0, 5)
+                    }
+                </div>
             </div>
 
         </div>
