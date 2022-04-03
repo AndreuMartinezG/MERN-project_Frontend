@@ -8,8 +8,6 @@ import './ProfileData.css'
 
 const ProfileData = (props) => {
 
-    console.log(props, "SOOOOOOOOOOOOOOOOOOOOOOOOOOY PROFILE DATA")
-
     const userData = props.userData;
 
     return (

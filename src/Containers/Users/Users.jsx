@@ -72,21 +72,15 @@ const Users = (props) => {
     const checkIfFollow = async () => {
 
         let userFollowed = props.userData.user.followed
-        console.log(userFollowed, "SOY USER FOLLOWED")
-        console.log(UserSearched._id, "SOY EL USUARIO SEARCH")
         let userIdFind = userFollowed.find(user => user.id_followed === UserSearched._id);
-
-        console.log(userIdFind, "Soy user Id Find")
 
         if (userIdFind) {
             setUserFollow(false)
             setUserUnfollow(true)
-            console.log(userFollow, "entro en el if = true = ya sigues a este usuario")
 
         } else {
             setUserFollow(true)
             setUserUnfollow(false)
-            console.log(userFollow, "entro en el else = true = sigues a este usuario")
 
         }
     }
@@ -136,7 +130,6 @@ const Users = (props) => {
         try {
 
             let res = await axios.post('https://mern-backend-forum.herokuapp.com/users/followed', body)
-            console.log(res, "soy RESSSSSS")
             props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data });
             checkIfFollow()
             let resultados = await axios.post(`https://mern-backend-forum.herokuapp.com/users/results/${UserSearched.userName}`)
@@ -164,10 +157,8 @@ const Users = (props) => {
             userId: props.userData.user._id,
             unfollowedId: UserSearched._id
         }
-        console.log(body, "soy body de unfollow")
         try {
             let res = await axios.delete('https://mern-backend-forum.herokuapp.com/users/followed', { data: body })
-            console.log(res, "soy RESSSSSS de unfollow")
             props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data[0] })
             checkIfFollow()
             let resultados = await axios.post(`https://mern-backend-forum.herokuapp.com/users/results/${UserSearched.userName}`)

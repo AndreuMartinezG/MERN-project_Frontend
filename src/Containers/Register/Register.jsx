@@ -42,9 +42,6 @@ const Register = (props) => {
 
         let arrayCampos = Object.entries(datosUsuario);
 
-        console.log(datosUsuario.password,"esta es password")
-        console.log(datosUsuario.password2,"esta es password2")
-
         // //1 comprobación de errores antes de enviar al backend
 
         if (datosUsuario.password !== datosUsuario.password2) {
@@ -64,8 +61,6 @@ const Register = (props) => {
             };
         };
 
-        console.log("todo ha ido biennnnnnnnnnnnnnnnn")
-
         //2construimos el body
 
         let body = {
@@ -77,13 +72,12 @@ const Register = (props) => {
             birthday: datosUsuario.birthday,
         }
 
-        console.log("le llaman BODYYY PAPAAAAA", body);
         //3 envio de axios
 
         try {
 
             let resultado = await axios.post("https://mern-backend-forum.herokuapp.com/users", body);
-            console.log(resultado);
+
 
             setTimeout(() => {
                 navigate("/login");

@@ -54,7 +54,6 @@ const Home = (props) => {
     }
 
     const escogerHilo = (hilo) => {
-        console.log(hilo);
         //Guardamos el hilo escogido en redux
         props.dispatch({ type: THREAD_DETAIL, payload: hilo });
 
@@ -182,7 +181,6 @@ const Home = (props) => {
                         marginTop: "2em",
                         marginBottom: "1em",
                     }}>Topics:</Title>
-                {console.log(threads, "esto es threads")}
 
                 {
                     threads.map(hilo => {

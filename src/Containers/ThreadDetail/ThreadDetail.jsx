@@ -301,7 +301,6 @@ const NewThreadPostForm = connect((state) => ({
 
 const ThreadDetail = (props) => {
     const thread = props.thread;
-    console.log(props.thread.post.length, 'props');
 
     if (thread.post.length >= 4) {
 
