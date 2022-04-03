@@ -40,7 +40,7 @@ const Home = (props) => {
     const traerHilos = async () => {
 
         try {
-            let response = await axios.get('http://localhost:5000/threads');
+            let response = await axios.get('https://mern-backend-forum.herokuapp.com/threads');
 
             // Ya no usamos useState, se usa el state de redux
             props.dispatch({ type: SET_THREADS, payload: response.data });
@@ -84,7 +84,7 @@ const Home = (props) => {
 
         try {
 
-            let response = await axios.post('http://localhost:5000/threads', body);
+            let response = await axios.post('https://mern-backend-forum.herokuapp.com/threads', body);
 
             notification.showNotification({
                 message: 'You created a new thread',

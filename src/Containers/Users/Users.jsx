@@ -57,7 +57,7 @@ const Users = (props) => {
         // };
 
         try {
-            let res = await axios.post(`http://localhost:5000/threads/post/${userId}`, body);
+            let res = await axios.post(`https://mern-backend-forum.herokuapp.com/threads/post/${userId}`, body);
             let reverse = res.data.reverse()
             setUserData(reverse)
 
@@ -135,11 +135,11 @@ const Users = (props) => {
 
         try {
 
-            let res = await axios.post('http://localhost:5000/users/followed', body)
+            let res = await axios.post('https://mern-backend-forum.herokuapp.com/users/followed', body)
             console.log(res, "soy RESSSSSS")
             props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data });
             checkIfFollow()
-            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
+            let resultados = await axios.post(`https://mern-backend-forum.herokuapp.com/users/results/${UserSearched.userName}`)
             props.dispatch({ type: USER_SEARCH, payload: resultados.data })
             notification.showNotification({
                 message: 'You are now following this user',
@@ -166,11 +166,11 @@ const Users = (props) => {
         }
         console.log(body, "soy body de unfollow")
         try {
-            let res = await axios.delete('http://localhost:5000/users/followed', { data: body })
+            let res = await axios.delete('https://mern-backend-forum.herokuapp.com/users/followed', { data: body })
             console.log(res, "soy RESSSSSS de unfollow")
             props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data[0] })
             checkIfFollow()
-            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
+            let resultados = await axios.post(`https://mern-backend-forum.herokuapp.com/users/results/${UserSearched.userName}`)
             props.dispatch({ type: USER_SEARCH, payload: resultados.data })
             notification.showNotification({
                 message: 'You stopped following this user',
