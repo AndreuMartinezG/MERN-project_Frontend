@@ -82,7 +82,7 @@ const Register = (props) => {
 
         try {
 
-            let resultado = await axios.post("http://localhost:5000/users", body);
+            let resultado = await axios.post("https://mern-backend-forum.herokuapp.com/users", body);
             console.log(resultado);
 
             setTimeout(() => {
