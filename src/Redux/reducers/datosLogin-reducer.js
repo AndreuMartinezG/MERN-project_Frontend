@@ -1,7 +1,8 @@
-import { LOGIN, LOGOUT, MODIFY_CREDENTIALS } from '../types';
+import { LOGIN, LOGOUT, MODIFY_CREDENTIALS, USER_SEARCH } from '../types';
 
 const initialState = {
     token: null,
+    userSearch : {},
     user: {}
 };
 
@@ -19,6 +20,10 @@ const datosLoginReducer = (state = initialState, action) => {
         //MODIFICAMOS LOS DATOS QUE TENEMOS GUARDADOS EN ESTE ESTADO CON LOS VALORES QUE METAMOS POR INPUT 
         case MODIFY_CREDENTIALS:
             return { ...state, user:  action.payload };
+
+        case USER_SEARCH:
+            return { ...state, userSearch:  action.payload };
+            
 
         default:
             return state
