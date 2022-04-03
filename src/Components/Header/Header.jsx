@@ -49,7 +49,7 @@ const Header = (props) => {
         console.log(userName, "SOY NAAAAAAAAAAAAAAAAAAME")
         userName.toString();
         try {
-            let resultados = await axios.post(`http://localhost:5000/users/results/${userName}`);
+            let resultados = await axios.post(`https://mern-backend-forum.herokuapp.com/users/results/${userName}`);
 
             console.log(resultados.data.length, "SOY RESULTADOAAAAAAAAAAA")
             if (resultados.data.length !== 0) {
