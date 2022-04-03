@@ -25,7 +25,7 @@ const __ThreadPost = (props) => {
 
     const updateInfo = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/threads');
+            const response = await axios.get('https://mern-backend-forum.herokuapp.com/threads');
 
             props.dispatch({ type: SET_THREADS, payload: response.data });
 
@@ -42,7 +42,7 @@ const __ThreadPost = (props) => {
     const deletePost = async () => {
         const data = { postId, threadId };
 
-        await axios.delete('http://localhost:5000/threads/post', { data });
+        await axios.delete('https://mern-backend-forum.herokuapp.com/threads/post', { data });
 
         notification.showNotification({
             id: 'load-data',
@@ -70,7 +70,7 @@ const __ThreadPost = (props) => {
     const likePost = async () => {
         const data = { postId, threadId };
 
-        await axios.post('http://localhost:5000/threads/post/like', data);
+        await axios.post('https://mern-backend-forum.herokuapp.com/threads/post/like', data);
 
         updateInfo();
     }
@@ -165,7 +165,7 @@ const __UpdateThreadPostForm = (props) => {
                     autoClose: 2000,
                 });
             }, 1000)
-            const response = await axios.get('http://localhost:5000/threads');
+            const response = await axios.get('https://mern-backend-forum.herokuapp.com/threads');
 
             props.dispatch({ type: SET_THREADS, payload: response.data });
 
@@ -189,7 +189,7 @@ const __UpdateThreadPostForm = (props) => {
             postContent: formData.postContent
         }
 
-        axios.patch('http://localhost:5000/threads/post', data)
+        axios.patch('https://mern-backend-forum.herokuapp.com/threads/post', data)
             .then(() => { updateInfo() });
     }
 
@@ -227,7 +227,7 @@ const __NewThreadPostForm = (props) => {
 
     const updateInfo = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/threads');
+            const response = await axios.get('https://mern-backend-forum.herokuapp.com/threads');
 
             props.dispatch({ type: SET_THREADS, payload: response.data });
 
@@ -253,7 +253,7 @@ const __NewThreadPostForm = (props) => {
             text_post: formData.postContent,
         }
 
-        axios.post('http://localhost:5000/threads/post', data)
+        axios.post('https://mern-backend-forum.herokuapp.com/threads/post', data)
             .then(() => { updateInfo() })
             .then(() => {
                 notification.showNotification({
@@ -301,7 +301,6 @@ const NewThreadPostForm = connect((state) => ({
 
 const ThreadDetail = (props) => {
     const thread = props.thread;
-    console.log(props.thread.post.length, 'props');
 
     if (thread.post.length >= 4) {
 

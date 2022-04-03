@@ -10,6 +10,7 @@ import { useNotifications, updateNotification } from '@mantine/notifications';
 import { CheckIcon } from '@modulz/radix-icons';
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
 import ProfileUser from '../../Components/ProfileUser/ProfileUser';
+import moment from 'moment';
 import './Users.css'
 
 
@@ -57,7 +58,7 @@ const Users = (props) => {
         // };
 
         try {
-            let res = await axios.post(`http://localhost:5000/threads/post/${userId}`, body);
+            let res = await axios.post(`https://mern-backend-forum.herokuapp.com/threads/post/${userId}`, body);
             let reverse = res.data.reverse()
             setUserData(reverse)
 
@@ -72,21 +73,15 @@ const Users = (props) => {
     const checkIfFollow = async () => {
 
         let userFollowed = props.userData.user.followed
-        console.log(userFollowed, "SOY USER FOLLOWED")
-        console.log(UserSearched._id, "SOY EL USUARIO SEARCH")
         let userIdFind = userFollowed.find(user => user.id_followed === UserSearched._id);
-
-        console.log(userIdFind, "Soy user Id Find")
 
         if (userIdFind) {
             setUserFollow(false)
             setUserUnfollow(true)
-            console.log(userFollow, "entro en el if = true = ya sigues a este usuario")
 
         } else {
             setUserFollow(true)
             setUserUnfollow(false)
-            console.log(userFollow, "entro en el else = true = sigues a este usuario")
 
         }
     }
@@ -116,7 +111,7 @@ const Users = (props) => {
 
                 <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
                     <Text>{post.text_post}</Text>
-                    <Text>{post.created_post}</Text>
+                    <Text>{moment(post.created_post).format('L')}</Text>
                 </div>
             </div>
         )
@@ -135,11 +130,10 @@ const Users = (props) => {
 
         try {
 
-            let res = await axios.post('http://localhost:5000/users/followed', body)
-            console.log(res, "soy RESSSSSS")
+            let res = await axios.post('https://mern-backend-forum.herokuapp.com/users/followed', body)
             props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data });
             checkIfFollow()
-            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
+            let resultados = await axios.post(`https://mern-backend-forum.herokuapp.com/users/results/${UserSearched.userName}`)
             props.dispatch({ type: USER_SEARCH, payload: resultados.data })
             notification.showNotification({
                 message: 'You are now following this user',
@@ -164,13 +158,11 @@ const Users = (props) => {
             userId: props.userData.user._id,
             unfollowedId: UserSearched._id
         }
-        console.log(body, "soy body de unfollow")
         try {
-            let res = await axios.delete('http://localhost:5000/users/followed', { data: body })
-            console.log(res, "soy RESSSSSS de unfollow")
+            let res = await axios.delete('https://mern-backend-forum.herokuapp.com/users/followed', { data: body })
             props.dispatch({ type: MODIFY_CREDENTIALS, payload: res.data[0] })
             checkIfFollow()
-            let resultados = await axios.post(`http://localhost:5000/users/results/${UserSearched.userName}`)
+            let resultados = await axios.post(`https://mern-backend-forum.herokuapp.com/users/results/${UserSearched.userName}`)
             props.dispatch({ type: USER_SEARCH, payload: resultados.data })
             notification.showNotification({
                 message: 'You stopped following this user',

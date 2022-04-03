@@ -8,6 +8,7 @@ import { useForm } from '@mantine/form';
 import { MODIFY_CREDENTIALS } from '../../Redux/types';
 import { useNotifications, updateNotification } from '@mantine/notifications';
 import { CheckIcon } from '@modulz/radix-icons';
+import moment from 'moment';
 
 import './profile.css'
 import HeaderProfile from '../../Components/HeaderProfile/HeaderProfile';
@@ -47,7 +48,7 @@ const Profile = (props) => {
         // };
 
         try {
-            let res = await axios.post(`http://localhost:5000/threads/post/${userId}`, body);
+            let res = await axios.post(`https://mern-backend-forum.herokuapp.com/threads/post/${userId}`, body);
             let reverse = res.data.reverse()
             setUserData(reverse)
 
@@ -81,7 +82,7 @@ const Profile = (props) => {
 
                 <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', }}>
                     <Text>{post.text_post}</Text>
-                    <Text>{post.created_post}</Text>
+                    <Text>{moment(post.created_post).format('L')}</Text>
                 </div>
             </div>
         )
@@ -115,7 +116,7 @@ const Profile = (props) => {
         }
         try {
             //Hacemos el update en la base de datos
-            let res = await axios.put(`http://localhost:5000/users`, body);
+            let res = await axios.put(`https://mern-backend-forum.herokuapp.com/users`, body);
             if (res) {
                 //Guardamos en redux
 
