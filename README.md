@@ -55,3 +55,15 @@ Además de mostrar los datos del usuario y los post más recientes realizados po
 ![Profile](images/profile.png)
 
 
+
+## Funcionaliad adicional 
+
+En el componente de Header tiene distintas funcionalidades:
+
+![Header](images/header.png)
+
+- Buscador de Usuarios (aparece si estás logueado)
+- Botón de Login (aparece si no estás logueado)
+- Botón de Logout (aparece si estás logueado)
+- Botón de Perfil (aparece si estás logueado)
+
